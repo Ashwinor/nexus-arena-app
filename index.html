@@ -2,7 +2,7 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>NEXUS ARENA — Pro Esports Tournament Hub</title>
 
   <!-- Razorpay Checkout SDK -->
@@ -14,7 +14,7 @@
   <!-- Google Fonts: Inter & Orbitron -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -48,7 +48,7 @@
 
     /* Pro Esports Broadcast Glass & Tactical Slate Surfaces */
     .glass-card {
-      background: linear-gradient(155deg, rgba(14, 19, 31, 0.94), rgba(9, 12, 20, 0.96));
+      background: linear-gradient(155deg, rgba(14, 19, 31, 0.95), rgba(9, 12, 20, 0.97));
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(0, 240, 255, 0.14);
@@ -60,13 +60,14 @@
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
       border-bottom: 1px solid rgba(0, 240, 255, 0.16);
+      padding-top: env(safe-area-inset-top, 0px);
     }
 
     /* Floating Instagram / WhatsApp Style Bottom Pill Dock */
     .floating-pill-dock {
       background: rgba(14, 19, 31, 0.92);
-      backdrop-filter: blur(24px) saturate(160%);
-      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      backdrop-filter: blur(24px) saturate(165%);
+      -webkit-backdrop-filter: blur(24px) saturate(165%);
       border: 1px solid rgba(255, 255, 255, 0.12);
       box-shadow:
         0 14px 34px -6px rgba(0, 0, 0, 0.85),
@@ -163,7 +164,8 @@
   <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
     <div class="absolute -top-28 -left-24 w-80 h-80 rounded-full bg-[#00F0FF]/10 blur-3xl"></div>
     <div class="absolute top-1/4 -right-24 w-80 h-80 rounded-full bg-[#FF3366]/10 blur-3xl"></div>
-    <div class="absolute bottom-24 left-1/3 w-72 h-72 rounded-full bg-[#FFC83D]/8 blur-3xl"></div>
+    <div class="absolute bottom-24 left-1/4 w-72 h-72 rounded-full bg-[#7C3AED]/10 blur-3xl"></div>
+    <div class="absolute bottom-10 right-1/4 w-64 h-64 rounded-full bg-[#FFC83D]/8 blur-3xl"></div>
   </div>
 
   <!-- ===================================================================== -->
@@ -202,20 +204,20 @@
         ontouchmove="cancelLongPress()"
         class="no-select text-center mb-6 cursor-pointer"
       >
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00F0FF] via-[#0284C7] to-[#FF3366] text-slate-950 text-2xl font-black shadow-lg shadow-[#00F0FF]/20 mb-3">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00F0FF] via-[#7C3AED] to-[#FF3366] text-white text-2xl font-black shadow-lg shadow-[#00F0FF]/20 mb-3">
           <i class="fa-solid fa-trophy"></i>
         </div>
         <h1 class="font-display text-2xl sm:text-3xl font-black tracking-wider text-white">
           NEXUS <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#FFC83D] to-[#FF3366]">ARENA</span>
         </h1>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">Pro Esports &amp; Competitive Gaming Hub</p>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">Pro Esports &amp; Mobile Gaming Hub</p>
       </div>
 
       <!-- Auth Glass Card -->
       <div class="glass-card rounded-3xl p-6 sm:p-7 shadow-2xl">
         <!-- Tab Switcher: Sign In vs Create Account -->
         <div class="grid grid-cols-2 gap-1.5 p-1 rounded-2xl bg-[#07090E]/90 border border-slate-800 mb-6">
-          <button type="button" id="auth-tab-login" onclick="switchAuthTab('login')" class="py-2.5 rounded-xl text-xs sm:text-sm font-bold transition bg-gradient-to-r from-[#00F0FF] to-[#0284C7] text-slate-950 shadow">
+          <button type="button" id="auth-tab-login" onclick="switchAuthTab('login')" class="py-2.5 rounded-xl text-xs sm:text-sm font-bold transition bg-gradient-to-r from-[#00F0FF] to-[#7C3AED] text-white shadow">
             Sign In
           </button>
           <button type="button" id="auth-tab-signup" onclick="switchAuthTab('signup')" class="py-2.5 rounded-xl text-xs sm:text-sm font-bold transition text-slate-400 hover:text-white">
@@ -246,7 +248,7 @@
               </div>
             </div>
 
-            <button type="button" onclick="handleLoginSubmit()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#0EA5E9] to-[#FF3366] hover:brightness-110 text-slate-950 font-display font-extrabold text-sm tracking-wide shadow-lg shadow-[#00F0FF]/20 transition active:scale-[0.99]">
+            <button type="button" onclick="handleLoginSubmit()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#7C3AED] to-[#FF3366] hover:brightness-110 text-white font-display font-extrabold text-sm tracking-wide shadow-lg shadow-[#00F0FF]/20 transition active:scale-[0.99]">
               Sign In to Arena
             </button>
           </div>
@@ -280,8 +282,11 @@
                 <input id="signup-name" type="text" placeholder="Alex Mercer" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1">Gaming Username *</label>
-                <input id="signup-username" type="text" placeholder="@StrikerX" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
+                <div class="flex items-center justify-between mb-1">
+                  <label class="text-xs font-semibold text-slate-300">Username *</label>
+                  <span id="signup-username-hint" class="text-[10px] text-slate-500">Min 5 chars</span>
+                </div>
+                <input id="signup-username" type="text" placeholder="@StrikerX" oninput="validateSignupForm()" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
               </div>
             </div>
 
@@ -298,7 +303,7 @@
 
             <div>
               <label class="block text-xs font-semibold text-slate-300 mb-1">Create Password *</label>
-              <input id="signup-password" type="password" oninput="validateSignupPassword()" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" placeholder="Create a strong password" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
+              <input id="signup-password" type="password" oninput="validateSignupForm()" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" placeholder="Create a strong password" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
 
               <!-- Live Visual Password Rule Indicators -->
               <div class="grid grid-cols-2 gap-1.5 mt-2.5 p-2.5 rounded-xl bg-[#07090E]/90 border border-slate-800/80 text-[11px]">
@@ -354,7 +359,7 @@
   <!-- ===================================================================== -->
   <div id="app-shell" class="relative z-10 hidden min-h-screen pb-28">
 
-    <!-- Clean Top Bar: Displays Strictly "NEXUS ARENA" Title -->
+    <!-- Minimal Top Header: Displays Strictly "NEXUS ARENA" Wordmark -->
     <header class="sticky top-0 z-30 top-arena-bar">
       <div class="max-w-[480px] mx-auto px-4 py-3.5 flex items-center justify-center">
         <span class="font-display font-black text-base sm:text-lg tracking-[0.18em] text-white">
@@ -363,7 +368,7 @@
       </div>
 
       <!-- ADMIN CONTROL BAR (VISIBLE ONLY WHEN isAdmin === true) -->
-      <div id="admin-control-bar" class="hidden bg-gradient-to-r from-[#00F0FF]/12 via-[#0E131F] to-[#FF3366]/12 border-t border-[#00F0FF]/25">
+      <div id="admin-control-bar" class="hidden bg-gradient-to-r from-[#00F0FF]/12 via-[#0E131F] to-[#7C3AED]/15 border-t border-[#00F0FF]/25">
         <div class="max-w-[480px] mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
           <!-- Server Maintenance Toggle -->
           <div class="flex items-center gap-2">
@@ -377,11 +382,16 @@
             <span id="maintenance-status-label" class="text-[10px] font-display font-bold text-slate-400">OFF</span>
           </div>
 
-          <!-- + Create Event Button -->
-          <button type="button" onclick="openEventEditorModal()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#0EA5E9] hover:brightness-110 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow transition">
-            <i class="fa-solid fa-plus"></i>
-            <span>Create Event</span>
-          </button>
+          <!-- + Create Event & Admin Logout -->
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="openEventEditorModal()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#0EA5E9] hover:brightness-110 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow transition">
+              <i class="fa-solid fa-plus"></i>
+              <span>Create Event</span>
+            </button>
+            <button type="button" onclick="handleLogout()" title="Admin Logout" class="px-2.5 py-1.5 rounded-xl bg-[#FF3366]/15 hover:bg-[#FF3366]/25 border border-[#FF3366]/45 text-[#FF3366] font-bold text-xs flex items-center gap-1 transition">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          </div>
         </div>
       </div>
     </header>
@@ -483,7 +493,7 @@
               <div class="min-w-0 flex-1">
                 <h3 class="font-display text-sm font-bold text-white">Tournament Standings Table</h3>
                 <p id="standings-formula-legend" class="text-[11px] text-slate-400 mt-0.5">
-                  Auto TS on ✓: TW (+1) - TL (-1) + GH (+1) - GC (-1)
+                  Auto TS on ✓: TW (3 pts) + Draws (1 pt)
                 </p>
               </div>
 
@@ -647,24 +657,27 @@
       </section>
 
       <!-- ================================================================= -->
-      <!-- TAB 4: PRO ESPORTS PLAYER PROFILE                                 -->
+      <!-- TAB 4: PRO ESPORTS PLAYER PROFILE (COVER, BADGE CIRCLE, SETTINGS) -->
       <!-- ================================================================= -->
       <section id="tab-profile" class="hidden space-y-4">
         <div class="glass-card rounded-3xl overflow-hidden border border-slate-800 shadow-2xl">
-          <!-- Pro Esports Cover Banner -->
-          <div class="h-28 bg-gradient-to-r from-[#00F0FF]/25 via-[#0E131F] to-[#FF3366]/25 relative border-b border-slate-800/80">
-            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#00F0FF 1px, transparent 1px); background-size: 16px 16px;"></div>
+          <!-- Custom Back Cover Photo Banner -->
+          <div id="profile-cover-banner" class="h-32 bg-gradient-to-r from-[#00F0FF]/25 via-[#7C3AED]/25 to-[#FF3366]/25 relative border-b border-slate-800/80 overflow-hidden">
+            <img id="profile-cover-img" src="" alt="Cover Banner" class="hidden w-full h-full object-cover" />
+            <div id="profile-cover-grid" class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#00F0FF 1px, transparent 1px); background-size: 16px 16px;"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#07090E]/80 via-transparent to-black/25"></div>
 
-            <!-- Top-Left Pro Player Badge -->
-            <div class="absolute top-4 left-4">
-              <span id="profile-role-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#07090E]/85 border border-[#00F0FF]/35 text-[10px] font-display font-bold tracking-wider text-[#00F0FF]">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#00F0FF] animate-pulse"></span>
-                PRO COMPETITOR
-              </span>
+            <!-- Top-Left Change Cover Photo Button -->
+            <div class="absolute top-3.5 left-3.5">
+              <label class="px-3 py-1.5 rounded-xl bg-[#07090E]/85 hover:bg-slate-800 border border-slate-700/90 text-[11px] font-semibold text-slate-200 flex items-center gap-1.5 cursor-pointer shadow transition">
+                <i class="fa-solid fa-image text-[#00F0FF]"></i>
+                <span>Cover</span>
+                <input type="file" accept="image/*" onchange="handleQuickCoverUpload(event)" class="hidden" />
+              </label>
             </div>
 
-            <!-- Top-Right Settings Button (Contains Edit Profile, Dark Mode, Log Out) -->
-            <div class="absolute top-4 right-4">
+            <!-- Top-Right Settings Button (Edit Profile, Dark Mode, Badges, Log Out) -->
+            <div class="absolute top-3.5 right-3.5">
               <button type="button" onclick="openProfileSettingsModal()" title="Settings" class="px-3 py-1.5 rounded-xl bg-[#07090E]/90 hover:bg-slate-800 border border-slate-700/90 text-xs font-semibold text-white flex items-center gap-1.5 shadow transition">
                 <i class="fa-solid fa-gear text-[12px] text-[#00F0FF]"></i>
                 <span>Settings</span>
@@ -672,13 +685,30 @@
             </div>
           </div>
 
-          <!-- Avatar & Identity -->
+          <!-- Avatar, Small Circular Equipped Badge Slot & Identity (No "PRO COMPETITOR" tag) -->
           <div class="px-6 pb-6 text-center relative">
-            <div class="-mt-12 mx-auto w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-[#00F0FF] via-[#FFC83D] to-[#FF3366] shadow-xl">
-              <img id="profile-avatar-img" src="https://placehold.co/200x200/0E131F/00F0FF?text=PLAYER" alt="Profile Photo" class="w-full h-full rounded-full object-cover bg-[#07090E]" onerror="this.src='https://placehold.co/200x200/0E131F/00F0FF?text=PLAYER'" />
+            <div class="relative inline-block -mt-12">
+              <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-[#00F0FF] via-[#7C3AED] to-[#FF3366] shadow-xl">
+                <img id="profile-avatar-img" src="https://placehold.co/200x200/0E131F/00F0FF?text=PLAYER" alt="Profile Photo" class="w-full h-full rounded-full object-cover bg-[#07090E]" onerror="this.src='https://placehold.co/200x200/0E131F/00F0FF?text=PLAYER'" />
+              </div>
+
+              <!-- Small Circular Badge Slot Directly Beneath Profile Picture -->
+              <button
+                type="button"
+                id="profile-equipped-badge-circle"
+                onclick="openProfileBadgeInfoFromCircle()"
+                title="Equipped Achievement Badge"
+                class="-mt-3.5 mx-auto w-8 h-8 rounded-full bg-[#0E131F] border-2 border-slate-700 flex items-center justify-center text-xs text-slate-500 shadow-lg transition hover:scale-105"
+              >
+                <i class="fa-solid fa-shield"></i>
+              </button>
             </div>
 
-            <h2 id="profile-full-name" class="font-display text-xl sm:text-2xl font-extrabold text-white mt-3">
+            <div id="profile-equipped-badge-caption" class="hidden mt-1">
+              <span id="profile-equipped-badge-name" class="text-[10px] font-display font-bold tracking-wider uppercase text-[#FFC83D]"></span>
+            </div>
+
+            <h2 id="profile-full-name" class="font-display text-xl sm:text-2xl font-extrabold text-white mt-2">
               Player Name
             </h2>
             <p id="profile-username" class="text-xs sm:text-sm font-semibold text-[#00F0FF] mt-0.5">
@@ -731,7 +761,7 @@
     <!-- =================================================================== -->
     <!-- FLOATING INSTAGRAM / WHATSAPP STYLE BOTTOM PILL NAVIGATION          -->
     <!-- =================================================================== -->
-    <nav class="fixed bottom-4 inset-x-0 z-30 px-5 pointer-events-none">
+    <nav class="fixed bottom-4 inset-x-0 z-30 px-5 pointer-events-none" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
       <div class="max-w-[380px] mx-auto px-2 py-1.5 rounded-full floating-pill-dock grid grid-cols-4 gap-1 pointer-events-auto">
         <button type="button" data-nav="home" onclick="switchMainTab('home')" class="nav-tab-btn floating-pill-active flex flex-col items-center justify-center py-2 rounded-full transition-all duration-200">
           <i class="fa-solid fa-house text-[14px] mb-0.5"></i>
@@ -782,7 +812,7 @@
         <input id="admin-passcode-input" type="password" placeholder="Enter admin passcode" onkeydown="if(event.key==='Enter'){event.preventDefault();handleAdminLogin();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
       </div>
 
-      <button type="button" onclick="handleAdminLogin()" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#0EA5E9] hover:brightness-110 text-slate-950 font-display font-extrabold text-xs tracking-wider uppercase shadow transition">
+      <button type="button" onclick="handleAdminLogin()" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#7C3AED] hover:brightness-110 text-white font-display font-extrabold text-xs tracking-wider uppercase shadow transition">
         Unlock Admin Mode
       </button>
     </div>
@@ -894,7 +924,7 @@
         </div>
 
         <div class="space-y-2.5">
-          <button type="button" id="pay-now-btn" onclick="completePaymentRegistration(false)" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#0EA5E9] to-[#FF3366] hover:brightness-110 text-slate-950 font-display font-extrabold text-sm tracking-wide shadow-lg shadow-[#00F0FF]/25 transition flex items-center justify-center gap-2">
+          <button type="button" id="pay-now-btn" onclick="completePaymentRegistration(false)" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#7C3AED] to-[#FF3366] hover:brightness-110 text-white font-display font-extrabold text-sm tracking-wide shadow-lg shadow-[#00F0FF]/25 transition flex items-center justify-center gap-2">
             <i class="fa-solid fa-bolt"></i>
             <span>Pay via Razorpay</span>
           </button>
@@ -939,23 +969,24 @@
     </div>
   </div>
 
-  <!-- 5. Admin Create / Edit Event Modal (Includes Starting Date, Closing Date & 6-Digit ISO CODE) -->
+  <!-- 5. Admin Create / Edit Event Modal (Spacious, Well-Padded, Non-Overlapping) -->
   <div id="modal-event-editor" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-    <div class="glass-card max-w-md w-full rounded-3xl p-6 border border-[#00F0FF]/35 shadow-2xl max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between mb-4">
+    <div class="glass-card max-w-md w-full rounded-3xl p-6 sm:p-7 border border-[#00F0FF]/35 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 mb-5 border-b border-slate-800">
         <div>
-          <span class="text-[10px] font-display uppercase tracking-wider text-[#FFC83D]">Admin Organizer</span>
-          <h3 id="event-editor-heading" class="font-display text-lg font-extrabold text-white">Create New Event</h3>
+          <span class="text-[10px] font-display uppercase tracking-wider text-[#FFC83D] font-bold">Admin Organizer</span>
+          <h3 id="event-editor-heading" class="font-display text-lg font-extrabold text-white mt-0.5">Create New Event</h3>
         </div>
-        <button type="button" onclick="closeModal('modal-event-editor')" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <button type="button" onclick="closeModal('modal-event-editor')" class="w-9 h-9 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center shrink-0">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <div class="space-y-3.5">
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Game Category *</label>
-          <select id="editor-game-select" onchange="handleEditorGameChange()" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white">
+      <div class="space-y-4">
+        <!-- Game Category -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-slate-300">Game Category *</label>
+          <select id="editor-game-select" onchange="handleEditorGameChange()" class="w-full px-4 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white">
             <option value="PES 2026">PES 2026</option>
             <option value="Valorant">Valorant</option>
             <option value="Free Fire">Free Fire</option>
@@ -963,20 +994,23 @@
           </select>
         </div>
 
-        <div id="editor-custom-game-wrap" class="hidden">
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Custom Game Name *</label>
-          <input id="editor-custom-game-input" type="text" placeholder="e.g., BGMI, COD Mobile" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
+        <!-- Custom Game Name -->
+        <div id="editor-custom-game-wrap" class="hidden space-y-1.5">
+          <label class="block text-xs font-semibold text-slate-300">Custom Game Name *</label>
+          <input id="editor-custom-game-input" type="text" placeholder="e.g., BGMI, COD Mobile" class="w-full px-4 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
         </div>
 
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Event Title *</label>
-          <input id="editor-title-input" type="text" placeholder="e.g., PES 2026 Champions Cup" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
+        <!-- Event Title -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-slate-300">Event Title *</label>
+          <input id="editor-title-input" type="text" placeholder="e.g., PES 2026 Champions Cup" class="w-full px-4 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Match Style *</label>
-            <select id="editor-style-select" class="w-full px-3 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-xs text-white">
+        <!-- Match Style & Scoring Style -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-slate-300">Match Style *</label>
+            <select id="editor-style-select" class="w-full px-3.5 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-xs sm:text-sm text-white">
               <option value="1">1 Person (Solo)</option>
               <option value="2">2 Persons (Duo)</option>
               <option value="3">3 Persons (Trio)</option>
@@ -984,53 +1018,63 @@
               <option value="5">5 Persons (5v5 Team)</option>
             </select>
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Game Nature *</label>
-            <select id="editor-nature-select" class="w-full px-3 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-xs text-white">
+
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-slate-300">Scoring Style *</label>
+            <select id="editor-nature-select" class="w-full px-3.5 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-xs sm:text-sm text-white">
               <option value="pes">PES Style (Goals/Wins)</option>
               <option value="kills">Kills Style (Battle Royale)</option>
             </select>
           </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-2.5">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Entry Fee (₹) *</label>
-            <input id="editor-fee-input" type="number" min="0" value="30" class="w-full px-3 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
+        <!-- Entry Fee, Slots & 1st Prize Pool -->
+        <div class="pt-2 border-t border-slate-800/80 space-y-3.5">
+          <div class="grid grid-cols-2 gap-3.5">
+            <div class="space-y-1.5">
+              <label class="block text-xs font-semibold text-slate-300">Entry Fee (INR ₹) *</label>
+              <input id="editor-fee-input" type="number" min="0" value="30" class="w-full px-3.5 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
+            </div>
+            <div class="space-y-1.5">
+              <label class="block text-xs font-semibold text-slate-300">Total Slots *</label>
+              <input id="editor-slots-input" type="number" min="2" max="512" value="16" class="w-full px-3.5 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
+            </div>
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Slots *</label>
-            <input id="editor-slots-input" type="number" min="2" max="512" value="16" class="w-full px-3 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">1st Prize *</label>
-            <input id="editor-prize-input" type="text" placeholder="₹1000" class="w-full px-3 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
+
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-slate-300">1st Prize Pool *</label>
+            <input id="editor-prize-input" type="text" placeholder="e.g., ₹1,000 + Trophy" class="w-full px-4 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Registration Closing *</label>
-            <input id="editor-closing-date-input" type="date" class="w-full px-3 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-xs text-white" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Starting Date *</label>
-            <input id="editor-start-date-input" type="date" class="w-full px-3 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-xs text-white" />
+        <!-- Starting Date & Registration Closing Date (Well-Spaced, Non-Overlapping) -->
+        <div class="pt-2 border-t border-slate-800/80 space-y-3.5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="space-y-1.5">
+              <label class="block text-xs font-semibold text-slate-300">Starting Date *</label>
+              <input id="editor-start-date-input" type="date" class="w-full px-3.5 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-xs sm:text-sm text-white" />
+            </div>
+            <div class="space-y-1.5">
+              <label class="block text-xs font-semibold text-slate-300">Registration Closing *</label>
+              <input id="editor-closing-date-input" type="date" class="w-full px-3.5 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-xs sm:text-sm text-white" />
+            </div>
           </div>
         </div>
 
         <!-- Secret 6-Digit ISO CODE (Known to Admin Only) -->
-        <div>
-          <div class="flex items-center justify-between mb-1">
-            <label class="text-xs font-semibold text-[#FFC83D]">6-Digit ISO CODE (Admin Secret) *</label>
-            <span class="text-[10px] text-slate-400">Used for Instant Approve</span>
+        <div class="pt-2 border-t border-slate-800/80 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-semibold text-[#FFC83D]">Secret 6-Digit ISO CODE *</label>
+            <span class="text-[10px] text-slate-400">Admin Instant Approve Key</span>
           </div>
-          <input id="editor-iso-code-input" type="text" inputmode="numeric" maxlength="6" placeholder="e.g., 482910" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-[#FFC83D]/45 focus:border-[#FFC83D] focus:outline-none font-display text-sm font-bold tracking-[0.25em] text-[#FFC83D]" />
+          <input id="editor-iso-code-input" type="text" inputmode="numeric" maxlength="6" placeholder="e.g., 482910" class="w-full px-4 py-3 rounded-xl bg-[#07090E] border border-[#FFC83D]/45 focus:border-[#FFC83D] focus:outline-none font-display text-sm font-bold tracking-[0.25em] text-[#FFC83D]" />
         </div>
 
-        <button type="button" onclick="saveEventFromModal()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#0EA5E9] hover:brightness-110 text-slate-950 font-display font-extrabold text-sm tracking-wide transition mt-2">
-          Save Tournament Event
-        </button>
+        <div class="pt-2">
+          <button type="button" onclick="saveEventFromModal()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#7C3AED] to-[#FF3366] hover:brightness-110 text-white font-display font-extrabold text-sm tracking-wide shadow-lg transition">
+            Save Tournament Event
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -1127,9 +1171,9 @@
     </div>
   </div>
 
-  <!-- 10. Edit Profile Modal (Photo, Full Name, Username) -->
+  <!-- 10. Edit Profile Modal (Cover Photo, Avatar Photo, Full Name, Username) -->
   <div id="modal-profile-edit" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
-    <div class="glass-card max-w-md w-full rounded-3xl p-6 border border-[#00F0FF]/35 shadow-2xl">
+    <div class="glass-card max-w-md w-full rounded-3xl p-6 border border-[#00F0FF]/35 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-display text-lg font-extrabold text-white">Edit Profile</h3>
         <button type="button" onclick="closeModal('modal-profile-edit')" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -1138,10 +1182,24 @@
       </div>
 
       <div class="space-y-4">
-        <div class="flex flex-col items-center gap-3">
+        <!-- Back Cover Photo Upload Preview -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-slate-300">Back Cover Photo</label>
+          <div class="h-20 rounded-2xl bg-gradient-to-r from-[#00F0FF]/20 via-[#7C3AED]/20 to-[#FF3366]/20 border border-slate-800 relative overflow-hidden flex items-center justify-center">
+            <img id="edit-cover-preview" src="" alt="Cover Preview" class="hidden w-full h-full object-cover" />
+            <label class="relative z-10 px-3 py-1.5 rounded-xl bg-[#07090E]/90 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-[#00F0FF] cursor-pointer transition flex items-center gap-1.5">
+              <i class="fa-solid fa-image"></i>
+              <span>Upload Cover Photo</span>
+              <input type="file" accept="image/*" onchange="handleModalCoverUpload(event)" class="hidden" />
+            </label>
+          </div>
+        </div>
+
+        <!-- Avatar Upload & Presets -->
+        <div class="flex flex-col items-center gap-3 pt-1">
           <img id="edit-avatar-preview" src="https://placehold.co/200x200/0E131F/00F0FF?text=PLAYER" alt="Avatar Preview" class="w-20 h-20 rounded-full object-cover border-2 border-[#00F0FF]" />
           <label class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-[#00F0FF] cursor-pointer transition">
-            <i class="fa-solid fa-camera mr-1"></i> Upload Photo
+            <i class="fa-solid fa-camera mr-1"></i> Upload Avatar
             <input type="file" accept="image/*" onchange="handleAvatarFileUpload(event)" class="hidden" />
           </label>
 
@@ -1152,8 +1210,8 @@
             <button type="button" onclick="selectPresetAvatar('https://placehold.co/200x200/1E293B/FFC83D?text=ACE')" class="w-8 h-8 rounded-full overflow-hidden border border-slate-700 hover:border-[#FFC83D]">
               <img src="https://placehold.co/200x200/1E293B/FFC83D?text=ACE" alt="Preset 2" class="w-full h-full object-cover" />
             </button>
-            <button type="button" onclick="selectPresetAvatar('https://placehold.co/200x200/78350F/FBBF24?text=MVP')" class="w-8 h-8 rounded-full overflow-hidden border border-slate-700 hover:border-amber-400">
-              <img src="https://placehold.co/200x200/78350F/FBBF24?text=MVP" alt="Preset 3" class="w-full h-full object-cover" />
+            <button type="button" onclick="selectPresetAvatar('https://placehold.co/200x200/3B0764/C084FC?text=MVP')" class="w-8 h-8 rounded-full overflow-hidden border border-slate-700 hover:border-purple-400">
+              <img src="https://placehold.co/200x200/3B0764/C084FC?text=MVP" alt="Preset 3" class="w-full h-full object-cover" />
             </button>
             <button type="button" onclick="selectPresetAvatar('https://placehold.co/200x200/831843/FF3366?text=GG')" class="w-8 h-8 rounded-full overflow-hidden border border-slate-700 hover:border-[#FF3366]">
               <img src="https://placehold.co/200x200/831843/FF3366?text=GG" alt="Preset 4" class="w-full h-full object-cover" />
@@ -1171,7 +1229,7 @@
           <input id="edit-profile-username" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
         </div>
 
-        <button type="button" onclick="saveProfileChanges()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#0EA5E9] hover:brightness-110 text-slate-950 font-display font-extrabold text-sm tracking-wide transition">
+        <button type="button" onclick="saveProfileChanges()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#7C3AED] to-[#FF3366] hover:brightness-110 text-white font-display font-extrabold text-sm tracking-wide transition">
           Save Profile
         </button>
       </div>
@@ -1241,9 +1299,9 @@
     </div>
   </div>
 
-  <!-- 13. Profile Settings Modal (Edit Profile, Dark Mode ON/OFF, Log Out) -->
+  <!-- 13. Profile Settings Modal (Edit Profile, Dark Mode ON/OFF, Unlockable Badges, Log Out) -->
   <div id="modal-profile-settings" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-    <div class="glass-card max-w-sm w-full rounded-3xl p-6 border border-[#00F0FF]/35 shadow-2xl space-y-4">
+    <div class="glass-card max-w-sm w-full rounded-3xl p-6 border border-[#00F0FF]/35 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <div class="flex items-center gap-2">
           <span class="w-8 h-8 rounded-xl bg-[#00F0FF]/15 border border-[#00F0FF]/35 text-[#00F0FF] flex items-center justify-center text-xs">
@@ -1251,7 +1309,7 @@
           </span>
           <div>
             <h3 class="font-display text-base font-extrabold text-white">Settings</h3>
-            <p class="text-[11px] text-slate-400">Account &amp; Appearance</p>
+            <p class="text-[11px] text-slate-400">Account, Badges &amp; Appearance</p>
           </div>
         </div>
         <button type="button" onclick="closeModal('modal-profile-settings')" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -1267,7 +1325,7 @@
           </span>
           <div>
             <span class="text-sm font-bold text-white block">Edit Profile</span>
-            <span class="text-[11px] text-slate-400">Change photo, full name &amp; username</span>
+            <span class="text-[11px] text-slate-400">Cover photo, avatar, full name &amp; username</span>
           </div>
         </div>
         <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
@@ -1293,6 +1351,23 @@
         </div>
       </div>
 
+      <!-- Badges Section: MVP KING, ACE MASTER, GAME CHANGER -->
+      <div class="p-3.5 rounded-2xl bg-[#07090E] border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-xs font-display font-extrabold text-white block">Badges</span>
+            <span class="text-[10px] text-slate-400">Hold any badge for unlock rules • Tap unlocked to equip</span>
+          </div>
+          <span id="settings-badges-unlocked-count" class="px-2 py-0.5 rounded-full bg-slate-800 text-[#FFC83D] font-display font-bold text-[10px]">
+            0 / 3
+          </span>
+        </div>
+
+        <div id="settings-badges-grid" class="grid grid-cols-3 gap-2">
+          <!-- Dynamically populated badge cards -->
+        </div>
+      </div>
+
       <!-- Log Out Action Row -->
       <button type="button" onclick="closeModal('modal-profile-settings'); handleLogout();" class="w-full p-3.5 rounded-2xl bg-[#FF3366]/15 hover:bg-[#FF3366]/25 border border-[#FF3366]/45 flex items-center justify-between gap-3 transition text-left">
         <div class="flex items-center gap-3">
@@ -1305,6 +1380,33 @@
           </div>
         </div>
         <i class="fa-solid fa-arrow-right-from-bracket text-xs text-[#FF3366]"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 14. Badge Details & Display in Profile Modal -->
+  <div id="modal-badge-detail" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-sm">
+    <div class="glass-card max-w-xs w-full rounded-3xl p-6 text-center border border-[#FFC83D]/45 shadow-2xl space-y-4">
+      <div id="badge-detail-icon-wrap" class="w-16 h-16 mx-auto rounded-2xl bg-[#FFC83D]/15 border border-[#FFC83D]/45 text-[#FFC83D] flex items-center justify-center text-3xl">
+        <i class="fa-solid fa-crown"></i>
+      </div>
+
+      <div>
+        <span id="badge-detail-status-pill" class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-display font-bold uppercase tracking-wider mb-1.5">
+          LOCKED
+        </span>
+        <h3 id="badge-detail-title" class="font-display text-lg font-extrabold text-white">MVP KING</h3>
+        <p id="badge-detail-rule" class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+          Finish #1 in MVP of an ended tournament to unlock this badge.
+        </p>
+      </div>
+
+      <div id="badge-detail-actions" class="space-y-2 pt-1">
+        <!-- Dynamically populated equip/unequip button if unlocked -->
+      </div>
+
+      <button type="button" onclick="closeModal('modal-badge-detail')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs">
+        Close
       </button>
     </div>
   </div>
@@ -1366,15 +1468,45 @@
       }
 
       // -------------------------------------------------------------------
-      // 2. APPLICATION STATE (ZERO PRE-CREATED EVENTS, ZERO FAKE USERS)
+      // 2. APPLICATION STATE & UNLOCKABLE BADGE DEFINITIONS
       // -------------------------------------------------------------------
       const STORAGE_KEYS = {
-        USERS: 'nexus_arena_registered_users_v19',
-        STATE: 'nexus_arena_state_v19',
-        THEME: 'nexus_arena_dark_mode_v19'
+        USERS: 'nexus_arena_registered_users_v20',
+        STATE: 'nexus_arena_state_v20',
+        THEME: 'nexus_arena_dark_mode_v20'
       };
 
       const RAZORPAY_KEY_ID = 'rzp_test_U58EDnzsyGqw6z';
+
+      const BADGE_CATALOG = [
+        {
+          id: 'mvp_king',
+          name: 'MVP KING',
+          icon: 'fa-crown',
+          colorClass: 'text-[#FFC83D]',
+          bgClass: 'bg-[#FFC83D]/15 border-[#FFC83D]/50 text-[#FFC83D]',
+          ringClass: 'border-[#FFC83D] bg-[#0E131F] text-[#FFC83D]',
+          rule: 'Finish #1 in MVP of any ended tournament to unlock the MVP KING badge.'
+        },
+        {
+          id: 'ace_master',
+          name: 'ACE MASTER',
+          icon: 'fa-bolt',
+          colorClass: 'text-[#00F0FF]',
+          bgClass: 'bg-[#00F0FF]/15 border-[#00F0FF]/50 text-[#00F0FF]',
+          ringClass: 'border-[#00F0FF] bg-[#0E131F] text-[#00F0FF]',
+          rule: 'Win 5 consecutive 1st-place tournament matches to unlock the ACE MASTER badge.'
+        },
+        {
+          id: 'game_changer',
+          name: 'GAME CHANGER',
+          icon: 'fa-fire-flame-curved',
+          colorClass: 'text-[#FF3366]',
+          bgClass: 'bg-[#FF3366]/15 border-[#FF3366]/50 text-[#FF3366]',
+          ringClass: 'border-[#FF3366] bg-[#0E131F] text-[#FF3366]',
+          rule: 'Score more than 25 goals or more than 25 kills in a single match to unlock the GAME CHANGER badge.'
+        }
+      ];
 
       const defaultArenaState = {
         maintenanceMode: false,
@@ -1395,9 +1527,6 @@
       let detailSubtab = 'table';
       let isTableEditMode = false;
 
-      // Rank State:
-      // rankMode: 'podium' (strictly ended matches) | 'mvp'
-      // mvpSpec: 'ongoing' (active matches live Goals/Kills feed) | 'tournament' (ended matches final MVP)
       let rankMode = 'podium';
       let mvpSpec = 'ongoing';
       let rankLevel = 1;
@@ -1409,6 +1538,7 @@
       let editingEventId = null;
       let actionSheetEventId = null;
       let pendingAvatarDataUrl = '';
+      let pendingCoverDataUrl = '';
       let longPressTimer = null;
       let paymentVerifyTimer = null;
 
@@ -1509,11 +1639,6 @@
         showToast(isDarkMode ? 'Dark Mode turned ON' : 'Dark Mode turned OFF');
       }
 
-      function openProfileSettingsModal() {
-        applyDarkModeTheme();
-        openModal('modal-profile-settings');
-      }
-
       function saveRegisteredUsers() {
         safeSetStorage(STORAGE_KEYS.USERS, JSON.stringify(registeredUsers));
       }
@@ -1596,20 +1721,29 @@
         const signupPanel = document.getElementById('auth-panel-signup');
 
         if (tab === 'login') {
-          loginTab.className = 'py-2.5 rounded-xl text-xs sm:text-sm font-bold transition bg-gradient-to-r from-[#00F0FF] to-[#0284C7] text-slate-950 shadow';
+          loginTab.className = 'py-2.5 rounded-xl text-xs sm:text-sm font-bold transition bg-gradient-to-r from-[#00F0FF] to-[#7C3AED] text-white shadow';
           signupTab.className = 'py-2.5 rounded-xl text-xs sm:text-sm font-bold transition text-slate-400 hover:text-white';
           loginPanel.classList.remove('hidden');
           signupPanel.classList.add('hidden');
         } else {
-          signupTab.className = 'py-2.5 rounded-xl text-xs sm:text-sm font-bold transition bg-gradient-to-r from-[#00F0FF] to-[#0284C7] text-slate-950 shadow';
+          signupTab.className = 'py-2.5 rounded-xl text-xs sm:text-sm font-bold transition bg-gradient-to-r from-[#00F0FF] to-[#7C3AED] text-white shadow';
           loginTab.className = 'py-2.5 rounded-xl text-xs sm:text-sm font-bold transition text-slate-400 hover:text-white';
           signupPanel.classList.remove('hidden');
           loginPanel.classList.add('hidden');
         }
       }
 
-      function validateSignupPassword() {
+      function validateSignupForm() {
         const pwd = document.getElementById('signup-password').value || '';
+        const rawUser = (document.getElementById('signup-username').value || '').trim().replace(/^@+/, '');
+        const userHint = document.getElementById('signup-username-hint');
+        const usernameOk = rawUser.length >= 5;
+
+        if (userHint) {
+          userHint.textContent = usernameOk ? `${rawUser.length} chars ✓` : `${rawUser.length}/5 chars min`;
+          userHint.className = usernameOk ? 'text-[10px] text-emerald-400 font-semibold' : 'text-[10px] text-amber-400';
+        }
+
         const rules = [
           { id: 'rule-len', pass: pwd.length >= 8 },
           { id: 'rule-upper', pass: /[A-Z]/.test(pwd) },
@@ -1617,7 +1751,7 @@
           { id: 'rule-special', pass: /[^A-Za-z0-9]/.test(pwd) }
         ];
 
-        let allValid = true;
+        let allValid = usernameOk;
         rules.forEach(r => {
           const el = document.getElementById(r.id);
           if (!el) return;
@@ -1634,7 +1768,7 @@
 
         const submitBtn = document.getElementById('signup-submit-btn');
         if (allValid) {
-          submitBtn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#0EA5E9] to-[#FF3366] hover:brightness-110 text-slate-950 font-display font-extrabold text-sm tracking-wide shadow-lg shadow-[#00F0FF]/20 transition cursor-pointer';
+          submitBtn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#7C3AED] to-[#FF3366] hover:brightness-110 text-white font-display font-extrabold text-sm tracking-wide shadow-lg shadow-[#00F0FF]/20 transition cursor-pointer';
         } else {
           submitBtn.className = 'w-full py-3.5 rounded-xl bg-slate-800 text-slate-500 font-display font-bold text-sm tracking-wide cursor-not-allowed transition';
         }
@@ -1642,25 +1776,26 @@
       }
 
       function handleSignupSubmit() {
-        if (!validateSignupPassword()) {
-          showToast('Please satisfy all 4 password rules.');
-          return;
-        }
-
         const name = document.getElementById('signup-name').value.trim();
-        let username = document.getElementById('signup-username').value.trim();
+        let rawUsername = document.getElementById('signup-username').value.trim().replace(/^@+/, '');
         const phone = document.getElementById('signup-phone').value.trim();
         const email = document.getElementById('signup-email').value.trim();
         const password = document.getElementById('signup-password').value;
 
-        if (!name || !username || !phone || !email) {
+        if (rawUsername.length < 5) {
+          showToast('Gaming Username must be at least 5 characters.');
+          return;
+        }
+        if (!validateSignupForm()) {
+          showToast('Please satisfy all 4 password rules.');
+          return;
+        }
+        if (!name || !phone || !email) {
           showToast('Please complete all required fields.');
           return;
         }
 
-        if (!username.startsWith('@')) {
-          username = '@' + username;
-        }
+        const username = '@' + rawUsername;
 
         const duplicate = registeredUsers.some(
           u => u.email.toLowerCase() === email.toLowerCase() || u.username.toLowerCase() === username.toLowerCase()
@@ -1677,7 +1812,9 @@
           phone,
           email,
           password,
-          avatar: `https://placehold.co/200x200/0E131F/00F0FF?text=${encodeURIComponent(name.slice(0, 2).toUpperCase())}`
+          avatar: `https://placehold.co/200x200/0E131F/00F0FF?text=${encodeURIComponent(name.slice(0, 2).toUpperCase())}`,
+          coverImage: '',
+          equippedBadge: ''
         };
 
         registeredUsers.push(newUser);
@@ -1728,7 +1865,9 @@
           phone: '+91 90000 00000',
           email: `${tag.toLowerCase()}@nexus.gg`,
           password: '',
-          avatar: `https://placehold.co/200x200/0E131F/00F0FF?text=${provider === 'Google' ? 'G' : 'A'}`
+          avatar: `https://placehold.co/200x200/0E131F/00F0FF?text=${provider === 'Google' ? 'G' : 'A'}`,
+          coverImage: '',
+          equippedBadge: ''
         };
 
         registeredUsers.push(socialUser);
@@ -1761,7 +1900,9 @@
           username: '@NexusAdmin',
           phone: 'Official Organizer',
           email: 'admin@nexusarena.gg',
-          avatar: 'https://placehold.co/200x200/1E293B/FFC83D?text=ADM'
+          avatar: 'https://placehold.co/200x200/1E293B/FFC83D?text=ADM',
+          coverImage: '',
+          equippedBadge: ''
         };
 
         closeModal('modal-admin-access');
@@ -1902,8 +2043,8 @@
         }
         return {
           icon: 'fa-gamepad',
-          accent: 'text-sky-300',
-          bgIcon: 'bg-sky-500/15 border-sky-400/35 text-sky-300'
+          accent: 'text-[#7C3AED]',
+          bgIcon: 'bg-[#7C3AED]/15 border-[#7C3AED]/40 text-purple-300'
         };
       }
 
@@ -2197,6 +2338,7 @@
         ev.winners = w;
         ev.ended = true;
         ev.status = 'ended';
+        ev.endedAt = Date.now();
         isTableEditMode = false;
 
         saveArenaState();
@@ -2364,6 +2506,14 @@
         return 0;
       }
 
+      function computePesTotalScore(reg) {
+        const tm = Math.max(0, Number(reg.tm) || 0);
+        const tw = Math.max(0, Number(reg.tw) || 0);
+        const tl = Math.max(0, Number(reg.tl) || 0);
+        const draws = Math.max(0, tm - tw - tl);
+        return (tw * 3) + (draws * 1);
+      }
+
       function renderHomeLevel3Detail() {
         const ev = arenaState.events.find(e => e.id === selectedHomeEventId);
         if (!ev) {
@@ -2405,7 +2555,7 @@
         const isMultiTeam = (Number(ev.matchStyle) || 1) > 1;
         document.getElementById('standings-formula-legend').textContent = isKills
           ? 'Auto TS on ✓: TK + Position Bonus (1st: +2, 2nd: +1, 3rd: +0.5)'
-          : 'Auto TS on ✓: TW (+1) - TL (-1) + GH (+1) - GC (-1)';
+          : 'Auto TS on ✓: TW (3 pts) + Draws (1 pt) • GD = GH - GC';
 
         const thead = document.getElementById('standings-table-head');
         const tbody = document.getElementById('standings-table-body');
@@ -2610,7 +2760,7 @@
           reg.tl = Math.max(0, parseInt(document.getElementById(`inp-tl-${regId}`)?.value, 10) || 0);
           reg.gh = Math.max(0, parseInt(document.getElementById(`inp-gh-${regId}`)?.value, 10) || 0);
           reg.gc = Math.max(0, parseInt(document.getElementById(`inp-gc-${regId}`)?.value, 10) || 0);
-          reg.ts = reg.tw - reg.tl + reg.gh - reg.gc;
+          reg.ts = computePesTotalScore(reg);
         }
 
         saveArenaState();
@@ -2788,6 +2938,14 @@
               <span class="font-semibold text-slate-200 text-right break-all">${escapeHtml(email)}</span>
             </div>
             <div class="flex justify-between gap-2">
+              <span class="text-slate-400">Registered Date</span>
+              <span class="font-semibold text-slate-200 text-right">${escapeHtml(reg.registeredAt || 'N/A')}</span>
+            </div>
+            <div class="flex justify-between gap-2">
+              <span class="text-slate-400">Paid Amount</span>
+              <span class="font-display font-bold text-emerald-400 text-right">${Number(reg.paidAmount) === 0 ? 'Free' : '₹' + reg.paidAmount}</span>
+            </div>
+            <div class="flex justify-between gap-2">
               <span class="text-slate-400">Payment / ISO Ref</span>
               <span class="font-mono font-semibold text-[#FFC83D] text-right break-all">${escapeHtml(reg.razorpayPaymentId || reg.paymentId || 'N/A')}</span>
             </div>
@@ -2906,7 +3064,7 @@
             `;
           } else {
             ctaButtonHtml = `
-              <button type="button" onclick="initiateRegistration('${ev.id}')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#00F0FF] via-[#0EA5E9] to-[#FF3366] hover:brightness-110 text-slate-950 font-display font-extrabold text-xs tracking-wider uppercase shadow-lg shadow-[#00F0FF]/20 transition">
+              <button type="button" onclick="initiateRegistration('${ev.id}')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#00F0FF] via-[#7C3AED] to-[#FF3366] hover:brightness-110 text-white font-display font-extrabold text-xs tracking-wider uppercase shadow-lg shadow-[#00F0FF]/20 transition">
                 Register Now
               </button>
             `;
@@ -3010,10 +3168,10 @@
             html += `
               <div>
                 <div class="flex items-center justify-between mb-1">
-                  <label class="text-xs font-semibold text-slate-300">Player ${i} Name *</label>
+                  <label class="text-xs font-semibold text-slate-300">Player ${i} Username *</label>
                   <span id="team-member-hint-${i}" class="text-[10px] font-semibold text-slate-500">Min 5 chars</span>
                 </div>
-                <input type="text" minlength="5" data-slot="${i}" oninput="validateTeamRegistrationFields()" placeholder="Enter teammate ${i} name (min 5 chars)" class="team-member-input w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
+                <input type="text" minlength="5" data-slot="${i}" oninput="validateTeamRegistrationFields()" placeholder="Enter teammate ${i} username (min 5 chars)" class="team-member-input w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
               </div>
             `;
           }
@@ -3058,7 +3216,7 @@
 
       function submitTeamRosterSetup() {
         if (!validateTeamRegistrationFields()) {
-          showToast('Team name and all teammate names must be at least 5 characters.');
+          showToast('Team name and all teammate usernames must be at least 5 characters.');
           return;
         }
         const ev = arenaState.events.find(item => item.id === pendingRegistrationEventId);
@@ -3469,8 +3627,8 @@
           feeInput.value = '30';
           slotsInput.value = '16';
           prizeInput.value = '';
-          closingInput.value = getDefaultFutureDateString(10);
           startInput.value = getDefaultFutureDateString(12);
+          closingInput.value = getDefaultFutureDateString(10);
           isoInput.value = '';
         }
 
@@ -3490,8 +3648,8 @@
         const fee = Math.max(0, Number(document.getElementById('editor-fee-input').value) || 0);
         const slots = Math.max(2, parseInt(document.getElementById('editor-slots-input').value, 10) || 16);
         const firstPrize = document.getElementById('editor-prize-input').value.trim();
-        const closingDate = document.getElementById('editor-closing-date-input').value;
         const startDate = document.getElementById('editor-start-date-input').value;
+        const closingDate = document.getElementById('editor-closing-date-input').value;
         const isoCode = (document.getElementById('editor-iso-code-input').value || '').trim();
 
         if (!gameName || !title || !firstPrize || !closingDate || !startDate) {
@@ -3723,6 +3881,52 @@
         renderRankTab();
       }
 
+      function computeEventMvpLeaderboard(ev, includeZeroScores = false) {
+        const isKills = (ev.gameNature || 'pes') === 'kills';
+        const isMultiTeam = (Number(ev.matchStyle) || 1) > 1;
+        const mvpEntries = [];
+
+        (ev.registrations || []).forEach(reg => {
+          if (isKills && isMultiTeam) {
+            const killsMap = ensureMemberKillsMap(reg);
+            Object.entries(killsMap).forEach(([memberName, kVal]) => {
+              const count = Number(kVal) || 0;
+              if (includeZeroScores || count > 0) {
+                mvpEntries.push({
+                  name: memberName,
+                  sub: reg.teamName,
+                  score: count,
+                  reg
+                });
+              }
+            });
+          } else if (isKills) {
+            const count = Number(reg.tk) || 0;
+            if (includeZeroScores || count > 0) {
+              mvpEntries.push({
+                name: reg.playerName,
+                sub: reg.username,
+                score: count,
+                reg
+              });
+            }
+          } else {
+            const goals = Number(reg.gh) || 0;
+            if (includeZeroScores || goals > 0) {
+              mvpEntries.push({
+                name: reg.isTeam ? reg.teamName : reg.playerName,
+                sub: reg.isTeam ? `Captain: ${reg.playerName}` : reg.username,
+                score: goals,
+                reg
+              });
+            }
+          }
+        });
+
+        mvpEntries.sort((a, b) => b.score - a.score);
+        return mvpEntries;
+      }
+
       function renderRankLevel3Detail() {
         const ev = arenaState.events.find(e => e.id === selectedRankEventId);
         if (!ev) {
@@ -3795,48 +3999,9 @@
           return;
         }
 
-        // 2. MVP LEADERBOARD:
-        //    - 'ongoing': Direct live Goals & Kills feed for all registered players/squads
-        //    - 'tournament': Final locked MVP leaderboard for ended matches
+        // 2. MVP LEADERBOARD
         const isKills = (ev.gameNature || 'pes') === 'kills';
-        const isMultiTeam = (Number(ev.matchStyle) || 1) > 1;
-        const mvpEntries = [];
-
-        (ev.registrations || []).forEach(reg => {
-          if (isKills && isMultiTeam) {
-            const killsMap = ensureMemberKillsMap(reg);
-            Object.entries(killsMap).forEach(([memberName, kVal]) => {
-              const count = Number(kVal) || 0;
-              if (mvpSpec === 'ongoing' || count > 0) {
-                mvpEntries.push({
-                  name: memberName,
-                  sub: reg.teamName,
-                  score: count
-                });
-              }
-            });
-          } else if (isKills) {
-            const count = Number(reg.tk) || 0;
-            if (mvpSpec === 'ongoing' || count > 0) {
-              mvpEntries.push({
-                name: reg.playerName,
-                sub: reg.username,
-                score: count
-              });
-            }
-          } else {
-            const goals = Number(reg.gh) || 0;
-            if (mvpSpec === 'ongoing' || goals > 0) {
-              mvpEntries.push({
-                name: reg.isTeam ? reg.teamName : reg.playerName,
-                sub: reg.isTeam ? `Captain: ${reg.playerName}` : reg.username,
-                score: goals
-              });
-            }
-          }
-        });
-
-        mvpEntries.sort((a, b) => b.score - a.score);
+        const mvpEntries = computeEventMvpLeaderboard(ev, mvpSpec === 'ongoing');
         const unitLabel = isKills ? 'Kills' : 'Goals';
         const feedTitle = mvpSpec === 'ongoing'
           ? `Ongoing Match ${unitLabel} Feed`
@@ -3892,19 +4057,107 @@
       }
 
       // -------------------------------------------------------------------
-      // 10. PRO ESPORTS PLAYER PROFILE & COLLAPSIBLE ACHIEVEMENTS
+      // 10. PROFILE, UNLOCKABLE BADGES (MVP KING, ACE MASTER, GAME CHANGER)
+      //     & COLLAPSIBLE ACHIEVEMENTS
       // -------------------------------------------------------------------
+      function doesRegBelongToCurrentUser(reg) {
+        if (!currentUser || !reg) return false;
+        const userNameLower = (currentUser.name || '').trim().toLowerCase();
+        if (reg.userId === currentUser.id) return true;
+        if (Array.isArray(reg.members) && reg.members.some(m => String(m).trim().toLowerCase() === userNameLower)) {
+          return true;
+        }
+        return false;
+      }
+
+      function evaluateUserBadges() {
+        const unlocked = {
+          mvp_king: false,
+          ace_master: false,
+          game_changer: false
+        };
+        if (!currentUser) return unlocked;
+
+        const userNameLower = (currentUser.name || '').trim().toLowerCase();
+        const participatedOutcomes = [];
+
+        // Sort events chronologically so consecutive win streak is evaluated accurately
+        const chronologicalEvents = [...arenaState.events].sort((a, b) => (a.endedAt || 0) - (b.endedAt || 0));
+
+        chronologicalEvents.forEach(ev => {
+          const userReg = (ev.registrations || []).find(r => doesRegBelongToCurrentUser(r));
+          if (!userReg) return;
+
+          const isKills = (ev.gameNature || 'pes') === 'kills';
+          const isMultiTeam = (Number(ev.matchStyle) || 1) > 1;
+
+          // 3) GAME CHANGER: >25 goals or >25 kills in a single match
+          if (isKills) {
+            if (isMultiTeam) {
+              const killsMap = ensureMemberKillsMap(userReg);
+              const myKills = Number(killsMap[currentUser.name]) || 0;
+              if (myKills > 25 || (Number(userReg.tk) || 0) > 25) {
+                unlocked.game_changer = true;
+              }
+            } else if ((Number(userReg.tk) || 0) > 25) {
+              unlocked.game_changer = true;
+            }
+          } else {
+            if ((Number(userReg.gh) || 0) > 25) {
+              unlocked.game_changer = true;
+            }
+          }
+
+          if (!ev.ended) return;
+
+          // 1) MVP KING: #1 in MVP of an ended tournament
+          const mvpBoard = computeEventMvpLeaderboard(ev, false);
+          if (mvpBoard.length > 0 && mvpBoard[0].score > 0) {
+            const topEntry = mvpBoard[0];
+            if (
+              topEntry.name.trim().toLowerCase() === userNameLower ||
+              doesRegBelongToCurrentUser(topEntry.reg)
+            ) {
+              unlocked.mvp_king = true;
+            }
+          }
+
+          // Check 1st place win for ACE MASTER consecutive streak
+          const w = ev.winners || {};
+          const candidateName = (userReg.isTeam ? userReg.teamName : userReg.playerName).trim().toLowerCase();
+          const wonFirst = Boolean(w.first && w.first.trim().toLowerCase() === candidateName);
+          participatedOutcomes.push(wonFirst);
+        });
+
+        // 2) ACE MASTER: 5 consecutive 1st-place wins
+        let consecutiveWins = 0;
+        for (let i = 0; i < participatedOutcomes.length; i++) {
+          if (participatedOutcomes[i]) {
+            consecutiveWins += 1;
+            if (consecutiveWins >= 5) {
+              unlocked.ace_master = true;
+              break;
+            }
+          } else {
+            consecutiveWins = 0;
+          }
+        }
+
+        // Automatically clear equipped badge if it is no longer unlocked
+        if (currentUser.equippedBadge && !unlocked[currentUser.equippedBadge]) {
+          currentUser.equippedBadge = '';
+        }
+
+        return unlocked;
+      }
+
       function computeUserProfileStatsAndAchievements() {
         if (!currentUser) return { matchesJoined: 0, achievements: [] };
         const achievements = [];
         let matchesJoined = 0;
-        const userNameLower = (currentUser.name || '').trim().toLowerCase();
 
         arenaState.events.forEach(ev => {
-          const userReg = (ev.registrations || []).find(r =>
-            r.userId === currentUser.id ||
-            (Array.isArray(r.members) && r.members.some(m => String(m).trim().toLowerCase() === userNameLower))
-          );
+          const userReg = (ev.registrations || []).find(r => doesRegBelongToCurrentUser(r));
           if (!userReg) return;
 
           matchesJoined += 1;
@@ -3942,20 +4195,50 @@
       function renderProfileTab() {
         if (!currentUser) return;
         const avatarImg = document.getElementById('profile-avatar-img');
+        const coverImg = document.getElementById('profile-cover-img');
+        const coverGrid = document.getElementById('profile-cover-grid');
         const fullNameEl = document.getElementById('profile-full-name');
         const usernameEl = document.getElementById('profile-username');
-        const roleBadgeEl = document.getElementById('profile-role-badge');
         const matchesStatEl = document.getElementById('profile-stat-matches');
         const podiumsStatEl = document.getElementById('profile-stat-podiums');
 
         if (avatarImg) avatarImg.src = currentUser.avatar;
+
+        if (coverImg && coverGrid) {
+          if (currentUser.coverImage) {
+            coverImg.src = currentUser.coverImage;
+            coverImg.classList.remove('hidden');
+            coverGrid.classList.add('hidden');
+          } else {
+            coverImg.classList.add('hidden');
+            coverGrid.classList.remove('hidden');
+          }
+        }
+
         if (fullNameEl) fullNameEl.textContent = currentUser.name;
         if (usernameEl) usernameEl.textContent = currentUser.username;
 
-        if (roleBadgeEl) {
-          roleBadgeEl.innerHTML = isAdmin
-            ? `<span class="w-1.5 h-1.5 rounded-full bg-[#FFC83D] animate-pulse"></span> ARENA ADMIN`
-            : `<span class="w-1.5 h-1.5 rounded-full bg-[#00F0FF] animate-pulse"></span> PRO COMPETITOR`;
+        // Evaluate & Render Small Circular Badge Slot Under Avatar
+        const unlockedMap = evaluateUserBadges();
+        const badgeCircleBtn = document.getElementById('profile-equipped-badge-circle');
+        const badgeCaptionWrap = document.getElementById('profile-equipped-badge-caption');
+        const badgeCaptionName = document.getElementById('profile-equipped-badge-name');
+
+        const equippedMeta = BADGE_CATALOG.find(b => b.id === currentUser.equippedBadge && unlockedMap[b.id]);
+        if (badgeCircleBtn) {
+          if (equippedMeta) {
+            badgeCircleBtn.className = `-mt-3.5 mx-auto w-8 h-8 rounded-full border-2 ${equippedMeta.ringClass} flex items-center justify-center text-xs shadow-lg transition hover:scale-105`;
+            badgeCircleBtn.innerHTML = `<i class="fa-solid ${equippedMeta.icon}"></i>`;
+            if (badgeCaptionWrap && badgeCaptionName) {
+              badgeCaptionWrap.classList.remove('hidden');
+              badgeCaptionName.textContent = equippedMeta.name;
+              badgeCaptionName.className = `text-[10px] font-display font-bold tracking-wider uppercase ${equippedMeta.colorClass}`;
+            }
+          } else {
+            badgeCircleBtn.className = '-mt-3.5 mx-auto w-8 h-8 rounded-full bg-[#0E131F] border-2 border-slate-700 flex items-center justify-center text-xs text-slate-500 shadow-lg transition hover:scale-105';
+            badgeCircleBtn.innerHTML = '<i class="fa-solid fa-shield"></i>';
+            if (badgeCaptionWrap) badgeCaptionWrap.classList.add('hidden');
+          }
         }
 
         const stats = computeUserProfileStatsAndAchievements();
@@ -4004,6 +4287,128 @@
             <i class="fa-solid fa-chevron-right text-xs text-slate-500 shrink-0"></i>
           </div>
         `).join('');
+      }
+
+      function openProfileBadgeInfoFromCircle() {
+        if (!currentUser) return;
+        if (currentUser.equippedBadge) {
+          openBadgeDetailModal(currentUser.equippedBadge);
+        } else {
+          openProfileSettingsModal();
+        }
+      }
+
+      function openProfileSettingsModal() {
+        applyDarkModeTheme();
+        renderSettingsBadgesGrid();
+        openModal('modal-profile-settings');
+      }
+
+      function renderSettingsBadgesGrid() {
+        const gridEl = document.getElementById('settings-badges-grid');
+        const countEl = document.getElementById('settings-badges-unlocked-count');
+        if (!gridEl) return;
+
+        const unlockedMap = evaluateUserBadges();
+        const unlockedTotal = Object.values(unlockedMap).filter(Boolean).length;
+        if (countEl) countEl.textContent = `${unlockedTotal} / ${BADGE_CATALOG.length}`;
+
+        gridEl.innerHTML = BADGE_CATALOG.map(badge => {
+          const isUnlocked = Boolean(unlockedMap[badge.id]);
+          const isEquipped = currentUser && currentUser.equippedBadge === badge.id && isUnlocked;
+
+          return `
+            <div
+              onmousedown="startBadgeLongPress('${badge.id}')"
+              onmouseup="cancelLongPress()"
+              onmouseleave="cancelLongPress()"
+              ontouchstart="startBadgeLongPress('${badge.id}')"
+              ontouchend="cancelLongPress()"
+              ontouchmove="cancelLongPress()"
+              onclick="openBadgeDetailModal('${badge.id}')"
+              class="no-select cursor-pointer p-2.5 rounded-2xl border ${isUnlocked ? badge.bgClass : 'bg-slate-900/70 border-slate-800 text-slate-500 opacity-60'} text-center space-y-1.5 transition relative"
+            >
+              ${isEquipped ? '<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-400"></span>' : ''}
+              <div class="w-9 h-9 mx-auto rounded-xl bg-black/30 flex items-center justify-center text-base">
+                <i class="fa-solid ${isUnlocked ? badge.icon : 'fa-lock'}"></i>
+              </div>
+              <span class="font-display font-extrabold text-[9px] leading-tight block truncate">${badge.name}</span>
+              <span class="text-[8px] font-bold uppercase block ${isEquipped ? 'text-emerald-400' : (isUnlocked ? 'text-white/80' : 'text-slate-500')}">
+                ${isEquipped ? 'Displayed' : (isUnlocked ? 'Unlocked' : 'Locked')}
+              </span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function startBadgeLongPress(badgeId) {
+        cancelLongPress();
+        longPressTimer = setTimeout(() => {
+          openBadgeDetailModal(badgeId);
+        }, 450);
+      }
+
+      function openBadgeDetailModal(badgeId) {
+        const badge = BADGE_CATALOG.find(b => b.id === badgeId);
+        if (!badge) return;
+
+        const unlockedMap = evaluateUserBadges();
+        const isUnlocked = Boolean(unlockedMap[badge.id]);
+        const isEquipped = currentUser && currentUser.equippedBadge === badge.id && isUnlocked;
+
+        const iconWrap = document.getElementById('badge-detail-icon-wrap');
+        const statusPill = document.getElementById('badge-detail-status-pill');
+        const titleEl = document.getElementById('badge-detail-title');
+        const ruleEl = document.getElementById('badge-detail-rule');
+        const actionsEl = document.getElementById('badge-detail-actions');
+
+        iconWrap.className = `w-16 h-16 mx-auto rounded-2xl border ${isUnlocked ? badge.bgClass : 'bg-slate-800 border-slate-700 text-slate-400'} flex items-center justify-center text-3xl`;
+        iconWrap.innerHTML = `<i class="fa-solid ${isUnlocked ? badge.icon : 'fa-lock'}"></i>`;
+
+        if (isUnlocked) {
+          statusPill.textContent = isEquipped ? 'UNLOCKED • DISPLAYED IN PROFILE' : 'UNLOCKED';
+          statusPill.className = 'inline-block px-2.5 py-0.5 rounded-full text-[10px] font-display font-bold uppercase tracking-wider mb-1.5 bg-emerald-500/20 text-emerald-300 border border-emerald-400/40';
+        } else {
+          statusPill.textContent = 'LOCKED';
+          statusPill.className = 'inline-block px-2.5 py-0.5 rounded-full text-[10px] font-display font-bold uppercase tracking-wider mb-1.5 bg-slate-800 text-slate-400 border border-slate-700';
+        }
+
+        titleEl.textContent = badge.name;
+        ruleEl.textContent = badge.rule;
+
+        if (isUnlocked) {
+          actionsEl.innerHTML = isEquipped
+            ? `
+              <button type="button" onclick="toggleEquipBadgeOnProfile('')" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-display font-bold text-xs transition">
+                Remove from Profile
+              </button>
+            `
+            : `
+              <button type="button" onclick="toggleEquipBadgeOnProfile('${badge.id}')" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#FFC83D] hover:brightness-110 text-slate-950 font-display font-extrabold text-xs tracking-wide shadow transition">
+                Display in Profile
+              </button>
+            `;
+        } else {
+          actionsEl.innerHTML = '';
+        }
+
+        openModal('modal-badge-detail');
+      }
+
+      function toggleEquipBadgeOnProfile(badgeId) {
+        if (!currentUser) return;
+        currentUser.equippedBadge = badgeId || '';
+
+        const storedIdx = registeredUsers.findIndex(u => u.id === currentUser.id);
+        if (storedIdx !== -1) {
+          registeredUsers[storedIdx].equippedBadge = currentUser.equippedBadge;
+          saveRegisteredUsers();
+        }
+
+        closeModal('modal-badge-detail');
+        renderSettingsBadgesGrid();
+        renderProfileTab();
+        showToast(badgeId ? 'Badge displayed under your profile picture!' : 'Badge removed from profile.');
       }
 
       function toggleProfileAchievementsDrawer() {
@@ -4081,13 +4486,58 @@
         openModal('modal-achievement-details');
       }
 
+      function handleQuickCoverUpload(e) {
+        if (!currentUser) return;
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          currentUser.coverImage = ev.target.result;
+          const storedIdx = registeredUsers.findIndex(u => u.id === currentUser.id);
+          if (storedIdx !== -1) {
+            registeredUsers[storedIdx].coverImage = currentUser.coverImage;
+            saveRegisteredUsers();
+          }
+          renderProfileTab();
+          showToast('Back cover photo updated!');
+        };
+        reader.readAsDataURL(file);
+      }
+
       function openProfileEditModal() {
         if (!currentUser) return;
         pendingAvatarDataUrl = currentUser.avatar;
+        pendingCoverDataUrl = currentUser.coverImage || '';
         document.getElementById('edit-avatar-preview').src = currentUser.avatar;
+
+        const coverPrev = document.getElementById('edit-cover-preview');
+        if (coverPrev) {
+          if (pendingCoverDataUrl) {
+            coverPrev.src = pendingCoverDataUrl;
+            coverPrev.classList.remove('hidden');
+          } else {
+            coverPrev.classList.add('hidden');
+          }
+        }
+
         document.getElementById('edit-profile-name').value = currentUser.name;
         document.getElementById('edit-profile-username').value = currentUser.username;
         openModal('modal-profile-edit');
+      }
+
+      function handleModalCoverUpload(e) {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          pendingCoverDataUrl = ev.target.result;
+          const coverPrev = document.getElementById('edit-cover-preview');
+          if (coverPrev) {
+            coverPrev.src = pendingCoverDataUrl;
+            coverPrev.classList.remove('hidden');
+          }
+        };
+        reader.readAsDataURL(file);
       }
 
       function selectPresetAvatar(url) {
@@ -4120,6 +4570,7 @@
         currentUser.name = newName;
         currentUser.username = newUsername;
         if (pendingAvatarDataUrl) currentUser.avatar = pendingAvatarDataUrl;
+        currentUser.coverImage = pendingCoverDataUrl;
 
         const storedIdx = registeredUsers.findIndex(u => u.id === currentUser.id);
         if (storedIdx !== -1) {
@@ -4137,7 +4588,7 @@
       // -------------------------------------------------------------------
       window.startBrandAdminLongPress = startBrandAdminLongPress;
       window.switchAuthTab = switchAuthTab;
-      window.validateSignupPassword = validateSignupPassword;
+      window.validateSignupForm = validateSignupForm;
       window.handleSignupSubmit = handleSignupSubmit;
       window.handleLoginSubmit = handleLoginSubmit;
       window.handleSocialAuth = handleSocialAuth;
@@ -4194,6 +4645,12 @@
       window.toggleProfileAchievementsDrawer = toggleProfileAchievementsDrawer;
       window.startAchievementLongPress = startAchievementLongPress;
       window.openAchievementDetailsModal = openAchievementDetailsModal;
+      window.handleQuickCoverUpload = handleQuickCoverUpload;
+      window.handleModalCoverUpload = handleModalCoverUpload;
+      window.openProfileBadgeInfoFromCircle = openProfileBadgeInfoFromCircle;
+      window.startBadgeLongPress = startBadgeLongPress;
+      window.openBadgeDetailModal = openBadgeDetailModal;
+      window.toggleEquipBadgeOnProfile = toggleEquipBadgeOnProfile;
       window.openProfileEditModal = openProfileEditModal;
       window.selectPresetAvatar = selectPresetAvatar;
       window.handleAvatarFileUpload = handleAvatarFileUpload;
