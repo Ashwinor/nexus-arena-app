@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>NEXUS ARENA — Esports & Gaming Tournaments</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    :root {
+      --bg-base: #060812;
+      --bg-surface: rgba(14, 19, 38, 0.78);
+      --bg-card: rgba(19, 26, 51, 0.85);
+      --border-glass: rgba(34, 211, 238, 0.22);
+      --border-purple: rgba(168, 85, 247, 0.32);
+      --cyan: #22d3ee;
+      --cyan-glow: rgba(34, 211, 238, 0.35);
+      --purple: #a855f7;
+      --purple-glow: rgba(168, 85, 247, 0.35);
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(168, 85, 247, 0.18), transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(34, 211, 238, 0.16), transparent 42%),
+        linear-gradient(180deg, #050711 0%, #090d1f 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      background: rgba(8, 11, 24, 0.88);
+      border-left: 1px solid rgba(255, 255, 255, 0.06);
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-bottom: 78px;
+    }
+
+    .font-display {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    /* Header */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      padding: 14px 16px;
+      background: rgba(6, 9, 20, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-glass);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 15px;
+      color: #050711;
+      box-shadow: 0 0 16px var(--cyan-glow);
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 800;
+      background: linear-gradient(90deg, #fff, var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge-role {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .badge-admin {
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid var(--purple);
+      color: #e9d5ff;
+    }
+
+    .badge-player {
+      background: rgba(34, 211, 238, 0.15);
+      border: 1px solid var(--cyan);
+      color: #cffafe;
+    }
+
+    /* Content */
+    .content {
+      padding: 14px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .glass-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 14px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .glass-card-purple {
+      border-color: var(--border-purple);
+    }
+
+    /* Compact Segmented Switcher */
+    .compact-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      background: rgba(10, 14, 30, 0.9);
+      padding: 3px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .compact-tab-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 8px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .compact-tab-btn.active {
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.25), rgba(168, 85, 247, 0.28));
+      color: #fff;
+      border: 1px solid rgba(34, 211, 238, 0.4);
+    }
+
+    /* Buttons */
+    .btn {
+      border: none;
+      border-radius: 11px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s, box-shadow 0.2s, opacity 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan), #06b6d4);
+      color: #041019;
+      box-shadow: 0 4px 16px var(--cyan-glow);
+    }
+
+    .btn-purple {
+      background: linear-gradient(135deg, var(--purple), #7e22ce);
+      color: #fff;
+      box-shadow: 0 4px 16px var(--purple-glow);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.18);
+      color: #fecaca;
+      border: 1px solid rgba(239, 68, 68, 0.45);
+    }
+
+    .btn-sm {
+      padding: 6px 10px;
+      font-size: 11px;
+      border-radius: 8px;
+    }
+
+    /* Inputs */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+
+    .field label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .input, .select {
+      width: 100%;
+      background: rgba(7, 10, 22, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .input:focus, .select:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.18);
+    }
+
+    /* Status Indicators */
+    .status-ongoing {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse 1.4s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .status-filling {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fbbf24;
+      background: rgba(245, 158, 11, 0.14);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .captain-tag {
+      color: var(--red);
+      font-weight: 800;
+    }
+
+    /* Game Category Grid */
+    .game-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .game-box {
+      background: linear-gradient(155deg, rgba(22, 30, 58, 0.92), rgba(12, 16, 34, 0.95));
+      border: 1px solid var(--border-glass);
+      border-radius: 14px;
+      padding: 14px 12px;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.2s;
+      user-select: none;
+    }
+
+    .game-box:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+    }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th, td {
+      padding: 8px 6px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    th {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--cyan);
+      font-weight: 700;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    td:first-child, th:first-child {
+      text-align: left;
+      padding-left: 10px;
+    }
+
+    .cell-input {
+      width: 38px;
+      background: rgba(5, 8, 18, 0.9);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      color: #fff;
+      border-radius: 6px;
+      padding: 3px;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 480px;
+      background: rgba(6, 9, 20, 0.94);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-glass);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 8px 6px;
+      z-index: 40;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-btn.active {
+      color: var(--cyan);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 4, 12, 0.82);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 60;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 430px;
+      max-height: 88vh;
+      overflow-y: auto;
+      background: #0c1124;
+      border: 1px solid var(--border-glass);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+    }
+
+    .rule-item {
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 3px;
+    }
+
+    .rule-ok { color: #34d399; }
+    .rule-no { color: #94a3b8; }
+
+    .empty-state {
+      text-align: center;
+      padding: 32px 16px;
+      color: var(--text-muted);
+      font-size: 13px;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+    }
+
+    .toast {
+      position: fixed;
+      top: 68px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(12, 18, 38, 0.96);
+      border: 1px solid var(--cyan);
+      color: #fff;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 90;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      max-width: 90%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell" id="app"></div>
+
+  <script>
+    /* =========================================================
+       RAZORPAY & BACKEND CONFIGURATION
+       ========================================================= */
+    const RAZORPAY_KEY_ID = 'rzp_test_U58EDnzsyGqw6z';
+    const PAYMENT_BACKEND_URL = 'https://nexus-razorpay-server.onrender.com';
+
+    /* =========================================================
+       SAFE STORAGE WRAPPER (IFRAME / SANDBOX SAFE)
+       ========================================================= */
+    const memoryFallback = {};
+    const safeStorage = {
+      getItem(key) {
+        try {
+          return window.localStorage.getItem(key);
+        } catch (e) {
+          return Object.prototype.hasOwnProperty.call(memoryFallback, key) ? memoryFallback[key] : null;
+        }
+      },
+      setItem(key, value) {
+        try {
+          window.localStorage.setItem(key, value);
+        } catch (e) {
+          memoryFallback[key] = value;
+        }
+      }
+    };
+
+    const STORAGE_KEY = 'nexus_arena_state_v3';
+
+    function loadState() {
+      const raw = safeStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          return JSON.parse(raw);
+        } catch (e) {}
+      }
+      return {
+        users: [],
+        events: [],
+        maintenanceMode: false
+      };
+    }
+
+    let db = loadState();
+    function saveState() {
+      safeStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+    }
+
+    /* =========================================================
+       UI RUNTIME STATE
+       ========================================================= */
+    let ui = {
+      currentUser: null,
+      authMode: 'signin', // 'signin' | 'signup' | 'admin'
+      tab: 'home',        // 'home' | 'event' | 'rank' | 'profile'
+      homeFilter: 'active',
+      homeSelectedGame: null,
+      homeSelectedEventId: null,
+      rankFilter: 'active',
+      rankMode: 'podium', // 'podium' | 'mvp'
+      rankSelectedGame: null,
+      rankSelectedEventId: null,
+      showAchievements: false,
+      modal: null,
+      toast: null,
+      paymentProcessing: false
+    };
+
+    let toastTimer = null;
+    function showToast(msg) {
+      ui.toast = msg;
+      render();
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        ui.toast = null;
+        render();
+      }, 3400);
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /* =========================================================
+       PASSWORD VALIDATION
+       ========================================================= */
+    function checkPasswordRules(pw) {
+      return {
+        minLen: pw.length >= 8,
+        upper: /[A-Z]/.test(pw),
+        num: /[0-9]/.test(pw),
+        special: /[^A-Za-z0-9]/.test(pw)
+      };
+    }
+
+    /* =========================================================
+       REAL RAZORPAY UPI CHECKOUT FLOW
+       ========================================================= */
+    async function startRazorpayPayment({ event, registrationPayload }) {
+      if (ui.paymentProcessing) return;
+
+      // Free tournament fallback (₹0)
+      if (Number(event.entryFee) <= 0) {
+        finalizeSlotRegistration(event.id, {
+          ...registrationPayload,
+          paymentId: 'FREE_ENTRY',
+          paidAmount: 0,
+          paidAt: new Date().toISOString()
+        });
+        return;
+      }
+
+      if (typeof window.Razorpay === 'undefined') {
+        showToast('Razorpay SDK failed to load. Check internet connection.');
+        return;
+      }
+
+      ui.paymentProcessing = true;
+      render();
+      showToast('Connecting to payment server (may take ~20s if waking up)...');
+
+      try {
+        // 1. Create order on Render backend
+        const orderResponse = await fetch(`${PAYMENT_BACKEND_URL}/api/create-order`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amountInr: Number(event.entryFee),
+            eventId: event.id,
+            userId: ui.currentUser.id
+          })
+        });
+
+        if (!orderResponse.ok) {
+          throw new Error('Could not create payment order on server');
+        }
+
+        const orderData = await orderResponse.json();
+        ui.paymentProcessing = false;
+        render();
+
+        // 2. Open Razorpay Standard Checkout with UPI prioritized
+        const options = {
+          key: RAZORPAY_KEY_ID,
+          amount: orderData.amount,
+          currency: orderData.currency || 'INR',
+          name: 'NEXUS ARENA',
+          description: `${event.title} (${event.game}) Entry Fee`,
+          order_id: orderData.orderId,
+          prefill: {
+            name: ui.currentUser.name || '',
+            email: ui.currentUser.email || ''
+          },
+          config: {
+            display: {
+              blocks: {
+                upi: {
+                  name: 'Pay via UPI (GPay / PhonePe / Paytm / UPI ID)',
+                  instruments: [{ method: 'upi' }]
+                }
+              },
+              sequence: ['block.upi'],
+              preferences: {
+                show_default_blocks: true
+              }
+            }
+          },
+          theme: {
+            color: '#22D3EE'
+          },
+          handler: async function (response) {
+            try {
+              showToast('Verifying payment signature...');
+              const verifyRes = await fetch(`${PAYMENT_BACKEND_URL}/api/verify-payment`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature
+                })
+              });
+
+              const verifyData = await verifyRes.json();
+              if (verifyRes.ok && verifyData.verified) {
+                finalizeSlotRegistration(event.id, {
+                  ...registrationPayload,
+                  paymentId: verifyData.paymentId || response.razorpay_payment_id,
+                  orderId: response.razorpay_order_id,
+                  paidAmount: Number(event.entryFee),
+                  paidAt: new Date().toISOString()
+                });
+              } else {
+                showToast('Signature verification failed. Contact Admin.');
+              }
+            } catch (err) {
+              showToast('Server verification error. Save Payment ID: ' + response.razorpay_payment_id);
+            }
+          },
+          modal: {
+            ondismiss: function () {
+              ui.paymentProcessing = false;
+              showToast('Payment cancelled.');
+              render();
+            }
+          }
+        };
+
+        const rzp = new window.Razorpay(options);
+        rzp.on('payment.failed', function (resp) {
+          ui.paymentProcessing = false;
+          showToast('Payment Failed: ' + (resp.error?.description || 'Transaction declined'));
+          render();
+        });
+        rzp.open();
+      } catch (err) {
+        ui.paymentProcessing = false;
+        render();
+        showToast('Server error: ' + err.message);
+      }
+    }
+
+    function finalizeSlotRegistration(eventId, teamEntry) {
+      const ev = db.events.find(e => e.id === eventId);
+      if (!ev) return;
+      if (ev.teams.length >= ev.maxSlots) {
+        showToast('Slots just filled up!');
+        return;
+      }
+      ev.teams.push(teamEntry);
+      saveState();
+      ui.modal = null;
+      ui.paymentProcessing = false;
+      showToast('Payment Verified! Slot Confirmed.');
+      render();
+    }
+
+    /* =========================================================
+       SCORING & STANDINGS HELPERS
+       ========================================================= */
+    function computeSortedStandings(ev) {
+      const list = ev.teams.map(t => {
+        if (ev.scoringStyle === 'pes') {
+          const w = Number(t.w || 0);
+          const d = Number(t.d || 0);
+          const l = Number(t.l || 0);
+          const gf = Number(t.gf || 0);
+          const ga = Number(t.ga || 0);
+          const mp = w + d + l;
+          const gd = gf - ga;
+          const pts = w * 3 + d * 1;
+          return { ...t, mp, gd, pts };
+        } else {
+          const totalKills = (t.members || []).reduce((acc, m) => acc + Number(m.kills || 0), 0);
+          const placementPts = Number(t.placementPts || 0);
+          const totalPts = totalKills + placementPts;
+          return { ...t, totalKills, placementPts, totalPts };
+        }
+      });
+
+      if (ev.scoringStyle === 'pes') {
+        list.sort((a, b) => (b.pts - a.pts) || (b.gd - a.gd) || (b.gf - a.gf));
+      } else {
+        list.sort((a, b) => (b.totalPts - a.totalPts) || (b.totalKills - a.totalKills));
+      }
+      return list;
+    }
+
+    function getEventMvpList(ev) {
+      const players = [];
+      ev.teams.forEach(t => {
+        (t.members || []).forEach((m, idx) => {
+          players.push({
+            playerName: m.name,
+            teamName: t.teamName,
+            isCaptain: idx === 0,
+            kills: Number(m.kills || 0)
+          });
+        });
+      });
+      players.sort((a, b) => b.kills - a.kills);
+      return players;
+    }
+
+    /* =========================================================
+       AUTH VIEWS
+       ========================================================= */
+    function renderAuth() {
+      const pwInput = document.getElementById('auth-pw')?.value || '';
+      const rules = checkPasswordRules(pwInput);
+
+      return `
+        <div class="topbar">
+          <div class="brand">
+            <div class="brand-logo font-display">N</div>
+            <div>
+              <div class="brand-title font-display">NEXUS ARENA</div>
+              <div style="font-size:10px;color:var(--text-muted);">ESPORTS &amp; TOURNAMENT HUB</div>
+            </div>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="switchAuthMode('${ui.authMode === 'admin' ? 'signin' : 'admin'}')">
+            ${ui.authMode === 'admin' ? 'Player Login' : 'Admin Access'}
+          </button>
+        </div>
+
+        <div class="content" style="justify-content:center;">
+          <div class="glass-card ${ui.authMode === 'admin' ? 'glass-card-purple' : ''}">
+            ${ui.authMode === 'admin' ? `
+              <h2 class="font-display" style="font-size:17px;margin-bottom:4px;color:#e9d5ff;">ADMIN COMMAND</h2>
+              <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Restricted tournament management access.</p>
+              <div class="field">
+                <label>Admin Passcode</label>
+                <input id="admin-pass" type="password" class="input" placeholder="Enter admin passcode" />
+              </div>
+              <button class="btn btn-purple" style="width:100%;" onclick="handleAdminLogin()">Unlock Admin Mode</button>
+            ` : `
+              <div class="compact-tabs" style="margin-bottom:14px;">
+                <button class="compact-tab-btn ${ui.authMode === 'signin' ? 'active' : ''}" onclick="switchAuthMode('signin')">Sign In</button>
+                <button class="compact-tab-btn ${ui.authMode === 'signup' ? 'active' : ''}" onclick="switchAuthMode('signup')">Create Account</button>
+              </div>
+
+              ${ui.authMode === 'signup' ? `
+                <div class="field">
+                  <label>Player / Gamer Name</label>
+                  <input id="auth-name" class="input" placeholder="Min 5 characters" />
+                </div>
+              ` : ''}
+
+              <div class="field">
+                <label>Email Address</label>
+                <input id="auth-email" type="email" class="input" placeholder="player@nexusarena.gg" />
+              </div>
+
+              <div class="field">
+                <label>Password</label>
+                <input id="auth-pw" type="password" class="input" placeholder="••••••••" oninput="updatePwPreview(this.value)" />
+                ${ui.authMode === 'signup' ? `
+                  <div id="pw-rules-box" style="margin-top:4px;">
+                    <div class="rule-item ${rules.minLen ? 'rule-ok' : 'rule-no'}">${rules.minLen ? '✓' : '○'} Min 8 characters</div>
+                    <div class="rule-item ${rules.upper ? 'rule-ok' : 'rule-no'}">${rules.upper ? '✓' : '○'} 1 Uppercase letter</div>
+                    <div class="rule-item ${rules.num ? 'rule-ok' : 'rule-no'}">${rules.num ? '✓' : '○'} 1 Number</div>
+                    <div class="rule-item ${rules.special ? 'rule-ok' : 'rule-no'}">${rules.special ? '✓' : '○'} 1 Special char</div>
+                  </div>
+                ` : ''}
+              </div>
+
+              <button class="btn btn-primary" style="width:100%;margin-top:4px;" onclick="handlePlayerAuth()">
+                ${ui.authMode === 'signin' ? 'Enter Arena' : 'Create Player Account'}
+              </button>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;">
+                <button class="btn btn-ghost btn-sm" onclick="handleOAuth('Google')">Continue with Google</button>
+                <button class="btn btn-ghost btn-sm" onclick="handleOAuth('Apple')">Continue with Apple</button>
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+    }
+
+    function switchAuthMode(mode) {
+      ui.authMode = mode;
+      render();
+    }
+
+    function updatePwPreview(val) {
+      const box = document.getElementById('pw-rules-box');
+      if (!box) return;
+      const r = checkPasswordRules(val);
+      box.innerHTML = `
+        <div class="rule-item ${r.minLen ? 'rule-ok' : 'rule-no'}">${r.minLen ? '✓' : '○'} Min 8 characters</div>
+        <div class="rule-item ${r.upper ? 'rule-ok' : 'rule-no'}">${r.upper ? '✓' : '○'} 1 Uppercase letter</div>
+        <div class="rule-item ${r.num ? 'rule-ok' : 'rule-no'}">${r.num ? '✓' : '○'} 1 Number</div>
+        <div class="rule-item ${r.special ? 'rule-ok' : 'rule-no'}">${r.special ? '✓' : '○'} 1 Special char</div>
+      `;
+    }
+
+    function handleAdminLogin() {
+      const pass = document.getElementById('admin-pass').value.trim();
+      if (pass === 'admin123' || pass === 'nexusadmin') {
+        ui.currentUser = { id: 'admin_root', name: 'Arena Admin', email: 'admin@nexusarena.gg', role: 'admin' };
+        ui.tab = 'home';
+        showToast('Admin Mode Activated');
+        render();
+      } else {
+        showToast('Invalid Admin Passcode');
+      }
+    }
+
+    function handlePlayerAuth() {
+      const email = document.getElementById('auth-email').value.trim().toLowerCase();
+      const pw = document.getElementById('auth-pw').value;
+
+      if (!email || !pw) {
+        showToast('Enter email and password');
+        return;
+      }
+
+      if (ui.authMode === 'signup') {
+        const name = document.getElementById('auth-name').value.trim();
+        if (name.length < 5) {
+          showToast('Player name must be at least 5 characters');
+          return;
+        }
+        const r = checkPasswordRules(pw);
+        if (!r.minLen || !r.upper || !r.num || !r.special) {
+          showToast('Password does not meet all 4 security rules');
+          return;
+        }
+        if (db.users.some(u => u.email === email)) {
+          showToast('Account already exists with this email');
+          return;
+        }
+        const newUser = { id: 'usr_' + Date.now(), name, email, password: pw, role: 'player' };
+        db.users.push(newUser);
+        saveState();
+        ui.currentUser = newUser;
+        ui.tab = 'home';
+        showToast('Welcome to NEXUS ARENA, ' + name);
+        render();
+      } else {
+        const found = db.users.find(u => u.email === email && u.password === pw);
+        if (!found) {
+          showToast('Invalid credentials or account not found');
+          return;
+        }
+        ui.currentUser = found;
+        ui.tab = 'home';
+        showToast('Signed in as ' + found.name);
+        render();
+      }
+    }
+
+    function handleOAuth(provider) {
+      const guestUser = {
+        id: 'usr_' + provider.toLowerCase() + '_' + Date.now(),
+        name: provider + 'Player',
+        email: provider.toLowerCase() + '@nexusarena.gg',
+        role: 'player'
+      };
+      if (!db.users.some(u => u.email === guestUser.email)) {
+        db.users.push(guestUser);
+        saveState();
+      }
+      ui.currentUser = guestUser;
+      ui.tab = 'home';
+      showToast('Signed in via ' + provider);
+      render();
+    }
+
+    /* =========================================================
+       MAIN LOGGED-IN SHELL
+       ========================================================= */
+    function renderMain() {
+      const isAdmin = ui.currentUser.role === 'admin';
+
+      if (db.maintenanceMode && !isAdmin) {
+        return `
+          <div class="topbar">
+            <div class="brand">
+              <div class="brand-logo font-display">N</div>
+              <div class="brand-title font-display">NEXUS ARENA</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="logout()">Sign Out</button>
+          </div>
+          <div class="content" style="justify-content:center;">
+            <div class="glass-card" style="text-align:center;padding:28px 18px;">
+              <div style="font-size:32px;margin-bottom:8px;">🛠️</div>
+              <h2 class="font-display" style="font-size:16px;color:var(--amber);margin-bottom:6px;">SERVER MAINTENANCE</h2>
+              <p style="font-size:13px;color:var(--text-muted);">NEXUS ARENA servers are currently undergoing scheduled upgrades. Please check back shortly.</p>
+            </div>
+          </div>
+        `;
+      }
+
+      let bodyHtml = '';
+      if (ui.tab === 'home') bodyHtml = renderHomeTab();
+      else if (ui.tab === 'event') bodyHtml = renderEventTab();
+      else if (ui.tab === 'rank') bodyHtml = renderRankTab();
+      else if (ui.tab === 'profile') bodyHtml = renderProfileTab();
+
+      return `
+        <div class="topbar">
+          <div class="brand">
+            <div class="brand-logo font-display">N</div>
+            <div>
+              <div class="brand-title font-display">NEXUS ARENA</div>
+              <div style="font-size:10px;color:var(--text-muted);">${escapeHtml(ui.currentUser.name)}</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="badge-role ${isAdmin ? 'badge-admin' : 'badge-player'}">${isAdmin ? 'ADMIN' : 'PLAYER'}</span>
+          </div>
+        </div>
+
+        <div class="content">
+          ${bodyHtml}
+        </div>
+
+        <nav class="bottom-nav">
+          <button class="nav-btn ${ui.tab === 'home' ? 'active' : ''}" onclick="setTab('home')">
+            <span style="font-size:16px;">🏠</span>
+            <span>HOME</span>
+          </button>
+          <button class="nav-btn ${ui.tab === 'event' ? 'active' : ''}" onclick="setTab('event')">
+            <span style="font-size:16px;">⚔️</span>
+            <span>EVENT</span>
+          </button>
+          <button class="nav-btn ${ui.tab === 'rank' ? 'active' : ''}" onclick="setTab('rank')">
+            <span style="font-size:16px;">🏆</span>
+            <span>RANK</span>
+          </button>
+          <button class="nav-btn ${ui.tab === 'profile' ? 'active' : ''}" onclick="setTab('profile')">
+            <span style="font-size:16px;">👤</span>
+            <span>PROFILE</span>
+          </button>
+        </nav>
+      `;
+    }
+
+    function setTab(tab) {
+      ui.tab = tab;
+      ui.homeSelectedGame = null;
+      ui.homeSelectedEventId = null;
+      ui.rankSelectedGame = null;
+      ui.rankSelectedEventId = null;
+      render();
+    }
+
+    function logout() {
+      ui.currentUser = null;
+      ui.authMode = 'signin';
+      render();
+    }
+
+    /* =========================================================
+       HOME TAB (3-LEVEL DRILL-DOWN + STANDINGS)
+       ========================================================= */
+    function renderHomeTab() {
+      const isAdmin = ui.currentUser.role === 'admin';
+      const filteredEvents = db.events.filter(e => e.status === ui.homeFilter);
+
+      // Level 3: Event Standings & Roster
+      if (ui.homeSelectedEventId) {
+        const ev = db.events.find(e => e.id === ui.homeSelectedEventId);
+        if (!ev) {
+          ui.homeSelectedEventId = null;
+          return renderHomeTab();
+        }
+        const sorted = computeSortedStandings(ev);
+        const isLocked = ev.status === 'finished';
+
+        return `
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <button class="btn btn-ghost btn-sm" onclick="ui.homeSelectedEventId=null;render();">← Back</button>
+            ${isAdmin && !isLocked ? `
+              <button class="btn btn-danger btn-sm" onclick="confirmEndTournament('${ev.id}')">End Tournament</button>
+            ` : ''}
+          </div>
+
+          <div class="glass-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+              <div>
+                <div style="font-size:11px;color:var(--cyan);font-weight:700;">${escapeHtml(ev.game)} • ${ev.scoringStyle === 'pes' ? 'PES STYLE' : 'KILLS STYLE'}</div>
+                <h3 class="font-display" style="font-size:15px;margin-top:2px;">${escapeHtml(ev.title)}</h3>
+              </div>
+              <span class="status-ongoing"><span class="pulse-dot"></span>${isLocked ? 'Finished' : 'Ongoing'}</span>
+            </div>
+
+            <div style="margin-top:12px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:6px;">LIVE STANDINGS TABLE</div>
+              ${sorted.length === 0 ? `<div class="empty-state">No squads registered yet.</div>` : `
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      ${ev.scoringStyle === 'pes' ? `
+                        <tr>
+                          <th># Squad</th>
+                          <th>MP</th>
+                          <th>W</th>
+                          <th>D</th>
+                          <th>L</th>
+                          <th>GF</th>
+                          <th>GA</th>
+                          <th>GD</th>
+                          <th>PTS</th>
+                          ${isAdmin && !isLocked ? '<th>Save</th>' : ''}
+                        </tr>
+                      ` : `
+                        <tr>
+                          <th># Squad</th>
+                          <th>Kills</th>
+                          <th>Place</th>
+                          <th>Total</th>
+                          ${isAdmin && !isLocked ? '<th>Edit</th>' : ''}
+                        </tr>
+                      `}
+                    </thead>
+                    <tbody>
+                      ${sorted.map((t, idx) => {
+                        if (ev.scoringStyle === 'pes') {
+                          return `
+                            <tr>
+                              <td><strong>${idx + 1}.</strong> ${escapeHtml(t.teamName)}</td>
+                              <td>${t.mp}</td>
+                              <td>${isAdmin && !isLocked ? `<input class="cell-input" id="w_${t.id}" type="number" value="${t.w || 0}" />` : (t.w || 0)}</td>
+                              <td>${isAdmin && !isLocked ? `<input class="cell-input" id="d_${t.id}" type="number" value="${t.d || 0}" />` : (t.d || 0)}</td>
+                              <td>${isAdmin && !isLocked ? `<input class="cell-input" id="l_${t.id}" type="number" value="${t.l || 0}" />` : (t.l || 0)}</td>
+                              <td>${isAdmin && !isLocked ? `<input class="cell-input" id="gf_${t.id}" type="number" value="${t.gf || 0}" />` : (t.gf || 0)}</td>
+                              <td>${isAdmin && !isLocked ? `<input class="cell-input" id="ga_${t.id}" type="number" value="${t.ga || 0}" />` : (t.ga || 0)}</td>
+                              <td>${t.gd >= 0 ? '+' + t.gd : t.gd}</td>
+                              <td style="color:var(--cyan);font-weight:800;">${t.pts}</td>
+                              ${isAdmin && !isLocked ? `<td><button class="btn btn-primary btn-sm" onclick="savePesRow('${ev.id}','${t.id}')">✓</button></td>` : ''}
+                            </tr>
+                          `;
+                        } else {
+                          return `
+                            <tr>
+                              <td><strong>${idx + 1}.</strong> ${escapeHtml(t.teamName)}</td>
+                              <td>${t.totalKills}</td>
+                              <td>${isAdmin && !isLocked ? `<input class="cell-input" id="pl_${t.id}" type="number" value="${t.placementPts || 0}" />` : (t.placementPts || 0)}</td>
+                              <td style="color:var(--cyan);font-weight:800;">${t.totalPts}</td>
+                              ${isAdmin && !isLocked ? `
+                                <td style="display:flex;gap:4px;justify-content:center;">
+                                  <button class="btn btn-ghost btn-sm" onclick="openSquadKillsModal('${ev.id}','${t.id}')">Kills</button>
+                                  <button class="btn btn-primary btn-sm" onclick="saveKillsRow('${ev.id}','${t.id}')">✓</button>
+                                </td>
+                              ` : ''}
+                            </tr>
+                          `;
+                        }
+                      }).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              `}
+            </div>
+
+            <div style="margin-top:14px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:6px;">REGISTERED SQUADS (${ev.teams.length}/${ev.maxSlots})</div>
+              ${ev.teams.map(t => `
+                <div style="padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:10px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;">
+                  <div>
+                    <div style="font-size:13px;font-weight:700;">${escapeHtml(t.teamName)}</div>
+                    <div style="font-size:11px;color:var(--text-muted);">
+                      ${(t.members || []).map((m, i) => i === 0 ? `${escapeHtml(m.name)} (<span class="captain-tag">Captain</span>)` : escapeHtml(m.name)).join(', ')}
+                    </div>
+                  </div>
+                  <button class="btn btn-ghost btn-sm" onclick="openSquadRosterModal('${ev.id}','${t.id}')">Roster</button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // Level 2: Events under selected Game Category
+      if (ui.homeSelectedGame) {
+        const gameEvents = filteredEvents.filter(e => e.game === ui.homeSelectedGame);
+        return `
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <button class="btn btn-ghost btn-sm" onclick="ui.homeSelectedGame=null;render();">← All Games</button>
+            <span style="font-size:12px;font-weight:700;color:var(--cyan);">${escapeHtml(ui.homeSelectedGame)}</span>
+          </div>
+
+          ${gameEvents.length === 0 ? `<div class="empty-state">No matches in this category.</div>` : gameEvents.map(ev => {
+            const isFull = ev.teams.length >= ev.maxSlots;
+            return `
+              <div class="glass-card" onclick="ui.homeSelectedEventId='${ev.id}';render();" style="cursor:pointer;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                  <span style="font-size:11px;color:var(--purple);font-weight:700;">${ev.teamSize === 1 ? 'SOLO' : ev.teamSize + 'v' + ev.teamSize + ' SQUAD'}</span>
+                  ${isFull || ev.status === 'finished'
+                    ? `<span class="status-ongoing"><span class="pulse-dot"></span>${ev.status === 'finished' ? 'Finished' : 'Ongoing'}</span>`
+                    : `<span class="status-filling">Slots Filling Fast</span>`
+                  }
+                </div>
+                <div style="font-size:15px;font-weight:800;margin-bottom:6px;">${escapeHtml(ev.title)}</div>
+                ${!isFull && ev.status === 'active' ? `
+                  <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:8px;">
+                    <span>Entry Fee: <strong style="color:#fff;">₹${ev.entryFee}</strong></span>
+                    <span>Slots: <strong style="color:var(--cyan);">${ev.teams.length}/${ev.maxSlots}</strong></span>
+                  </div>
+                  ${!isAdmin ? `<button class="btn btn-primary btn-sm" style="width:100%;" onclick="event.stopPropagation();openRegisterModal('${ev.id}')">Register Now</button>` : ''}
+                ` : ''}
+              </div>
+            `;
+          }).join('')}
+        `;
+      }
+
+      // Level 1: Game Categories (Only shown when matches exist!)
+      const gamesMap = {};
+      filteredEvents.forEach(e => {
+        gamesMap[e.game] = (gamesMap[e.game] || 0) + 1;
+      });
+      const gameNames = Object.keys(gamesMap);
+
+      return `
+        <div class="compact-tabs">
+          <button class="compact-tab-btn ${ui.homeFilter === 'active' ? 'active' : ''}" onclick="ui.homeFilter='active';render();">Active Matches</button>
+          <button class="compact-tab-btn ${ui.homeFilter === 'finished' ? 'active' : ''}" onclick="ui.homeFilter='finished';render();">Finished Matches</button>
+        </div>
+
+        ${isAdmin ? `
+          <button class="btn btn-purple" style="width:100%;" onclick="openCreateEventModal()">+ Create New Tournament</button>
+        ` : ''}
+
+        ${gameNames.length === 0 ? `
+          <div class="empty-state">
+            No ${ui.homeFilter} tournaments available yet.${isAdmin ? ' Tap "+ Create New Tournament" above to launch one.' : ''}
+          </div>
+        ` : `
+          <div class="game-grid">
+            ${gameNames.map(g => `
+              <div class="game-box" onclick="ui.homeSelectedGame='${escapeHtml(g)}';render();">
+                <div style="font-size:11px;color:var(--cyan);font-weight:700;margin-bottom:4px;">${gamesMap[g]} ${gamesMap[g] === 1 ? 'MATCH' : 'MATCHES'}</div>
+                <div class="font-display" style="font-size:14px;font-weight:800;">${escapeHtml(g)}</div>
+                ${isAdmin && ui.homeFilter === 'active' ? `
+                  <button class="btn btn-danger btn-sm" style="margin-top:10px;width:100%;" onclick="event.stopPropagation();endCategoryTournaments('${escapeHtml(g)}')">End Category</button>
+                ` : ''}
+              </div>
+            `).join('')}
+          </div>
+        `}
+      `;
+    }
+
+    function savePesRow(eventId, teamId) {
+      const ev = db.events.find(e => e.id === eventId);
+      const t = ev?.teams.find(x => x.id === teamId);
+      if (!t) return;
+      t.w = Number(document.getElementById(`w_${teamId}`).value || 0);
+      t.d = Number(document.getElementById(`d_${teamId}`).value || 0);
+      t.l = Number(document.getElementById(`l_${teamId}`).value || 0);
+      t.gf = Number(document.getElementById(`gf_${teamId}`).value || 0);
+      t.ga = Number(document.getElementById(`ga_${teamId}`).value || 0);
+      saveState();
+      showToast('Standings updated');
+      render();
+    }
+
+    function saveKillsRow(eventId, teamId) {
+      const ev = db.events.find(e => e.id === eventId);
+      const t = ev?.teams.find(x => x.id === teamId);
+      if (!t) return;
+      t.placementPts = Number(document.getElementById(`pl_${teamId}`).value || 0);
+      saveState();
+      showToast('Placement points saved');
+      render();
+    }
+
+    function confirmEndTournament(eventId) {
+      ui.modal = {
+        type: 'confirmEnd',
+        eventId
+      };
+      render();
+    }
+
+    function endCategoryTournaments(gameName) {
+      const activeInGame = db.events.filter(e => e.game === gameName && e.status === 'active');
+      if (activeInGame.length === 0) return;
+      ui.modal = {
+        type: 'confirmEndCategory',
+        gameName
+      };
+      render();
+    }
+
+    /* =========================================================
+       EVENT TAB (REGISTRATION LIST)
+       ========================================================= */
+    function renderEventTab() {
+      const isAdmin = ui.currentUser.role === 'admin';
+      const activeEvents = db.events.filter(e => e.status === 'active');
+
+      if (activeEvents.length === 0) {
+        return `<div class="empty-state">No open tournaments right now.</div>`;
+      }
+
+      return activeEvents.map(ev => {
+        const isFull = ev.teams.length >= ev.maxSlots;
+        const alreadyIn = ev.teams.some(t => t.ownerId === ui.currentUser.id);
+
+        return `
+          <div class="glass-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-size:11px;color:var(--cyan);font-weight:700;">${escapeHtml(ev.game)} • ${ev.teamSize === 1 ? 'SOLO' : ev.teamSize + '-PLAYER SQUAD'}</span>
+              ${isFull
+                ? `<span class="status-ongoing"><span class="pulse-dot"></span>Ongoing</span>`
+                : `<span class="status-filling">Slots Filling Fast</span>`
+              }
+            </div>
+            <h3 style="font-size:15px;font-weight:800;margin-bottom:6px;">${escapeHtml(ev.title)}</h3>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;">Closes: ${escapeHtml(ev.regCloseDate || 'TBA')}</div>
+
+            ${!isFull ? `
+              <div style="display:flex;justify-content:space-between;background:rgba(255,255,255,0.04);padding:8px 10px;border-radius:10px;font-size:12px;margin-bottom:10px;">
+                <span>Entry Fee: <strong style="color:#fff;">₹${ev.entryFee}</strong></span>
+                <span>Slots: <strong style="color:var(--cyan);">${ev.teams.length}/${ev.maxSlots}</strong></span>
+              </div>
+              ${!isAdmin ? (
+                alreadyIn
+                  ? `<button class="btn btn-ghost btn-sm" style="width:100%;" disabled>✓ Registered</button>`
+                  : `<button class="btn btn-primary" style="width:100%;" onclick="openRegisterModal('${ev.id}')">Register &amp; Pay ₹${ev.entryFee}</button>`
+              ) : ''}
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* =========================================================
+       RANK TAB (PODIUM & MVP LEADERBOARDS)
+       ========================================================= */
+    function renderRankTab() {
+      const events = db.events.filter(e => e.status === ui.rankFilter);
+
+      if (ui.rankSelectedEventId) {
+        const ev = db.events.find(e => e.id === ui.rankSelectedEventId);
+        if (!ev) {
+          ui.rankSelectedEventId = null;
+          return renderRankTab();
+        }
+        const standings = computeSortedStandings(ev);
+        const mvps = getEventMvpList(ev);
+
+        return `
+          <button class="btn btn-ghost btn-sm" style="align-self:flex-start;" onclick="ui.rankSelectedEventId=null;render();">← Back</button>
+
+          <div class="compact-tabs">
+            <button class="compact-tab-btn ${ui.rankMode === 'podium' ? 'active' : ''}" onclick="ui.rankMode='podium';render();">Tournament Podium</button>
+            <button class="compact-tab-btn ${ui.rankMode === 'mvp' ? 'active' : ''}" onclick="ui.rankMode='mvp';render();">MVP Rankings</button>
+          </div>
+
+          <div class="glass-card">
+            <h3 class="font-display" style="font-size:14px;margin-bottom:10px;color:var(--cyan);">${escapeHtml(ev.title)}</h3>
+            ${ui.rankMode === 'podium' ? (
+              standings.length === 0 ? `<div class="empty-state">No standings yet.</div>` : standings.map((t, idx) => `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);margin-bottom:6px;">
+                  <div>
+                    <span style="font-weight:800;color:${idx === 0 ? '#fbbf24' : idx === 1 ? '#cbd5e1' : idx === 2 ? '#d97706' : 'var(--text-muted)'};">#${idx + 1}</span>
+                    <strong style="margin-left:6px;">${escapeHtml(t.teamName)}</strong>
+                  </div>
+                  <div style="font-weight:800;color:var(--cyan);">
+                    ${ev.scoringStyle === 'pes' ? `${t.pts} PTS (GD ${t.gd >= 0 ? '+' + t.gd : t.gd})` : `${t.totalPts} PTS`}
+                  </div>
+                </div>
+              `).join('')
+            ) : (
+              mvps.length === 0 ? `<div class="empty-state">No player stats recorded.</div>` : mvps.map((p, idx) => `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);margin-bottom:6px;">
+                  <div>
+                    <span style="font-weight:800;color:var(--purple);">#${idx + 1}</span>
+                    <strong style="margin-left:6px;">${escapeHtml(p.playerName)}</strong>
+                    ${p.isCaptain ? `<span class="captain-tag" style="font-size:10px;margin-left:4px;">(Captain)</span>` : ''}
+                    <div style="font-size:11px;color:var(--text-muted);margin-left:22px;">${escapeHtml(p.teamName)}</div>
+                  </div>
+                  <div style="font-weight:800;color:var(--cyan);">${p.kills} Kills</div>
+                </div>
+              `).join('')
+            )}
+          </div>
+        `;
+      }
+
+      if (ui.rankSelectedGame) {
+        const list = events.filter(e => e.game === ui.rankSelectedGame);
+        return `
+          <button class="btn btn-ghost btn-sm" style="align-self:flex-start;" onclick="ui.rankSelectedGame=null;render();">← All Games</button>
+          ${list.map(ev => `
+            <div class="glass-card" onclick="ui.rankSelectedEventId='${ev.id}';render();" style="cursor:pointer;">
+              <div style="font-size:11px;color:var(--cyan);font-weight:700;">${escapeHtml(ev.game)}</div>
+              <div style="font-size:15px;font-weight:800;margin-top:2px;">${escapeHtml(ev.title)}</div>
+            </div>
+          `).join('')}
+        `;
+      }
+
+      const gameNames = [...new Set(events.map(e => e.game))];
+      return `
+        <div class="compact-tabs">
+          <button class="compact-tab-btn ${ui.rankFilter === 'active' ? 'active' : ''}" onclick="ui.rankFilter='active';render();">Active Matches</button>
+          <button class="compact-tab-btn ${ui.rankFilter === 'finished' ? 'active' : ''}" onclick="ui.rankFilter='finished';render();">Finished Matches</button>
+        </div>
+
+        ${gameNames.length === 0 ? `<div class="empty-state">No ${ui.rankFilter} rankings available yet.</div>` : `
+          <div class="game-grid">
+            ${gameNames.map(g => `
+              <div class="game-box" onclick="ui.rankSelectedGame='${escapeHtml(g)}';render();">
+                <div style="font-size:11px;color:var(--purple);font-weight:700;">LEADERBOARD</div>
+                <div class="font-display" style="font-size:14px;font-weight:800;margin-top:4px;">${escapeHtml(g)}</div>
+              </div>
+            `).join('')}
+          </div>
+        `}
+      `;
+    }
+
+    /* =========================================================
+       PROFILE TAB
+       ========================================================= */
+    function renderProfileTab() {
+      const isAdmin = ui.currentUser.role === 'admin';
+      const finishedEvents = db.events.filter(e => e.status === 'finished');
+
+      return `
+        <div class="glass-card">
+          <div style="font-size:11px;color:var(--cyan);font-weight:700;">ACCOUNT PROFILE</div>
+          <h3 style="font-size:17px;font-weight:800;margin-top:2px;">${escapeHtml(ui.currentUser.name)}</h3>
+          <div style="font-size:12px;color:var(--text-muted);">${escapeHtml(ui.currentUser.email)}</div>
+        </div>
+
+        ${isAdmin ? `
+          <div class="glass-card glass-card-purple">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <div style="font-size:13px;font-weight:700;">Server Maintenance Mode</div>
+                <div style="font-size:11px;color:var(--text-muted);">Block non-admin access during updates</div>
+              </div>
+              <button class="btn ${db.maintenanceMode ? 'btn-danger' : 'btn-ghost'} btn-sm" onclick="toggleMaintenance()">
+                ${db.maintenanceMode ? 'ON' : 'OFF'}
+              </button>
+            </div>
+          </div>
+        ` : ''}
+
+        <div class="glass-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="ui.showAchievements=!ui.showAchievements;render();">
+            <div>
+              <div style="font-size:14px;font-weight:800;">🏆 Achievements &amp; Hall of Fame</div>
+              <div style="font-size:11px;color:var(--text-muted);">Completed tournament podium records</div>
+            </div>
+            <span style="color:var(--cyan);font-weight:800;">${ui.showAchievements ? '▲' : '▼'}</span>
+          </div>
+
+          ${ui.showAchievements ? `
+            <div style="margin-top:12px;">
+              ${finishedEvents.length === 0 ? `<div class="empty-state">No finished tournaments yet.</div>` : finishedEvents.map(ev => {
+                const top3 = computeSortedStandings(ev).slice(0, 3);
+                return `
+                  <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);margin-bottom:8px;">
+                    <div style="font-size:11px;color:var(--cyan);font-weight:700;">${escapeHtml(ev.game)}</div>
+                    <div style="font-size:13px;font-weight:800;margin-bottom:6px;">${escapeHtml(ev.title)}</div>
+                    ${top3.map((t, i) => `
+                      <div style="font-size:12px;color:var(--text-muted);">
+                        ${i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉'} <strong style="color:#fff;">${escapeHtml(t.teamName)}</strong>
+                      </div>
+                    `).join('')}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          ` : ''}
+        </div>
+
+        <button class="btn btn-danger" style="width:100%;" onclick="logout()">Sign Out</button>
+      `;
+    }
+
+    function toggleMaintenance() {
+      db.maintenanceMode = !db.maintenanceMode;
+      saveState();
+      showToast('Maintenance Mode: ' + (db.maintenanceMode ? 'ENABLED' : 'DISABLED'));
+      render();
+    }
+
+    /* =========================================================
+       MODALS (CREATE EVENT, REGISTER + RAZORPAY, ROSTER, KILLS)
+       ========================================================= */
+    function openCreateEventModal() {
+      ui.modal = { type: 'createEvent' };
+      render();
+    }
+
+    function openRegisterModal(eventId) {
+      ui.modal = { type: 'register', eventId };
+      render();
+    }
+
+    function openSquadRosterModal(eventId, teamId) {
+      ui.modal = { type: 'roster', eventId, teamId };
+      render();
+    }
+
+    function openSquadKillsModal(eventId, teamId) {
+      ui.modal = { type: 'squadKills', eventId, teamId };
+      render();
+    }
+
+    function closeModal() {
+      if (ui.paymentProcessing) return;
+      ui.modal = null;
+      render();
+    }
+
+    function renderModal() {
+      if (!ui.modal) return '';
+
+      if (ui.modal.type === 'createEvent') {
+        return `
+          <div class="modal-backdrop" onclick="if(event.target===this)closeModal()">
+            <div class="modal-box">
+              <h3 class="font-display" style="font-size:15px;margin-bottom:12px;color:var(--cyan);">CREATE TOURNAMENT</h3>
+              <div class="field">
+                <label>Game Category</label>
+                <select id="ev-game" class="select">
+                  <option value="PES / eFootball">PES / eFootball</option>
+                  <option value="Valorant">Valorant</option>
+                  <option value="Free Fire">Free Fire</option>
+                  <option value="BGMI">BGMI</option>
+                  <option value="COD Mobile">COD Mobile</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Tournament Title</label>
+                <input id="ev-title" class="input" placeholder="e.g. Cyber Cup Season 1" />
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div class="field">
+                  <label>Team Size</label>
+                  <select id="ev-size" class="select">
+                    <option value="1">1 (Solo)</option>
+                    <option value="2">2 Players</option>
+                    <option value="3">3 Players</option>
+                    <option value="4">4 Players</option>
+                    <option value="5">5 Players</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Max Slots</label>
+                  <input id="ev-slots" type="number" class="input" value="8" min="2" max="64" />
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div class="field">
+                  <label>Entry Fee (₹ INR)</label>
+                  <input id="ev-fee" type="number" class="input" value="30" min="0" />
+                </div>
+                <div class="field">
+                  <label>Scoring Style</label>
+                  <select id="ev-style" class="select">
+                    <option value="pes">PES Style (W/D/L/GF/GA)</option>
+                    <option value="kills">Kills + Placement</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label>Registration Closing Date</label>
+                <input id="ev-close" type="date" class="input" />
+              </div>
+              <div style="display:flex;gap:8px;margin-top:8px;">
+                <button class="btn btn-ghost" style="flex:1;" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" style="flex:1;" onclick="submitCreateEvent()">Launch Event</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (ui.modal.type === 'register') {
+        const ev = db.events.find(e => e.id === ui.modal.eventId);
+        if (!ev) return '';
+        const size = Number(ev.teamSize || 1);
+
+        let memberInputs = '';
+        for (let i = 0; i < size; i++) {
+          memberInputs += `
+            <div class="field">
+              <label>${i === 0 ? 'Player 1 (<span class="captain-tag">Captain</span>)' : 'Player ' + (i + 1) + ' IGN'}</label>
+              <input id="reg-m-${i}" class="input" placeholder="Min 5 characters" value="${i === 0 ? escapeHtml(ui.currentUser.name) : ''}" />
+            </div>
+          `;
+        }
+
+        return `
+          <div class="modal-backdrop" onclick="if(event.target===this)closeModal()">
+            <div class="modal-box">
+              <h3 class="font-display" style="font-size:15px;margin-bottom:4px;color:var(--cyan);">SQUAD REGISTRATION</h3>
+              <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">${escapeHtml(ev.title)} • Entry Fee: <strong style="color:#fff;">₹${ev.entryFee}</strong></p>
+
+              <div class="field">
+                <label>${size === 1 ? 'Player Tag / Squad Name' : 'Squad / Team Name'}</label>
+                <input id="reg-team" class="input" placeholder="Min 5 characters" />
+              </div>
+
+              ${memberInputs}
+
+              <div style="display:flex;gap:8px;margin-top:10px;">
+                <button class="btn btn-ghost" style="flex:1;" onclick="closeModal()" ${ui.paymentProcessing ? 'disabled' : ''}>Cancel</button>
+                <button class="btn btn-primary" style="flex:1;" onclick="submitRegistrationAndPay('${ev.id}')" ${ui.paymentProcessing ? 'disabled' : ''}>
+                  ${ui.paymentProcessing ? 'Opening Razorpay...' : 'Pay ₹' + ev.entryFee + ' via UPI'}
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (ui.modal.type === 'roster') {
+        const ev = db.events.find(e => e.id === ui.modal.eventId);
+        const team = ev?.teams.find(t => t.id === ui.modal.teamId);
+        if (!team) return '';
+
+        return `
+          <div class="modal-backdrop" onclick="if(event.target===this)closeModal()">
+            <div class="modal-box">
+              <h3 class="font-display" style="font-size:15px;color:var(--cyan);margin-bottom:8px;">${escapeHtml(team.teamName)}</h3>
+              ${(team.members || []).map((m, idx) => `
+                <div style="padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;margin-bottom:6px;display:flex;justify-content:space-between;">
+                  <span>${escapeHtml(m.name)} ${idx === 0 ? '(<span class="captain-tag">Captain</span>)' : ''}</span>
+                  <span style="color:var(--cyan);font-weight:700;">${m.kills || 0} Kills</span>
+                </div>
+              `).join('')}
+              ${team.paymentId ? `<div style="font-size:10px;color:var(--text-muted);margin-top:8px;">Payment Ref: ${escapeHtml(team.paymentId)}</div>` : ''}
+              <button class="btn btn-ghost" style="width:100%;margin-top:12px;" onclick="closeModal()">Close</button>
+            </div>
+          </div>
+        `;
+      }
+
+      if (ui.modal.type === 'squadKills') {
+        const ev = db.events.find(e => e.id === ui.modal.eventId);
+        const team = ev?.teams.find(t => t.id === ui.modal.teamId);
+        if (!team) return '';
+
+        return `
+          <div class="modal-backdrop" onclick="if(event.target===this)closeModal()">
+            <div class="modal-box">
+              <h3 class="font-display" style="font-size:14px;color:var(--cyan);margin-bottom:10px;">SQUAD MEMBER KILLS</h3>
+              ${(team.members || []).map((m, idx) => `
+                <div class="field">
+                  <label>${escapeHtml(m.name)} ${idx === 0 ? '(<span class="captain-tag">Captain</span>)' : ''}</label>
+                  <input id="mk_${idx}" type="number" class="input" value="${m.kills || 0}" min="0" />
+                </div>
+              `).join('')}
+              <div style="display:flex;gap:8px;margin-top:10px;">
+                <button class="btn btn-ghost" style="flex:1;" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" style="flex:1;" onclick="saveSquadKills('${ev.id}','${team.id}')">Save Kills</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (ui.modal.type === 'confirmEnd') {
+        return `
+          <div class="modal-backdrop" onclick="if(event.target===this)closeModal()">
+            <div class="modal-box" style="text-align:center;">
+              <h3 class="font-display" style="font-size:15px;margin-bottom:8px;">END TOURNAMENT?</h3>
+              <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">Do you want to end this tournament? Standings and MVP rankings will lock permanently.</p>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-ghost" style="flex:1;" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-danger" style="flex:1;" onclick="executeEndTournament('${ui.modal.eventId}')">Yes, End Now</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (ui.modal.type === 'confirmEndCategory') {
+        return `
+          <div class="modal-backdrop" onclick="if(event.target===this)closeModal()">
+            <div class="modal-box" style="text-align:center;">
+              <h3 class="font-display" style="font-size:15px;margin-bottom:8px;">END ALL ${escapeHtml(ui.modal.gameName)}?</h3>
+              <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">Do you want to end all active tournaments in this category?</p>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-ghost" style="flex:1;" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-danger" style="flex:1;" onclick="executeEndCategory('${escapeHtml(ui.modal.gameName)}')">Confirm</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      return '';
+    }
+
+    function submitCreateEvent() {
+      const game = document.getElementById('ev-game').value;
+      const title = document.getElementById('ev-title').value.trim();
+      const teamSize = Number(document.getElementById('ev-size').value);
+      const maxSlots = Number(document.getElementById('ev-slots').value);
+      const entryFee = Number(document.getElementById('ev-fee').value);
+      const scoringStyle = document.getElementById('ev-style').value;
+      const regCloseDate = document.getElementById('ev-close').value;
+
+      if (title.length < 3) {
+        showToast('Enter a valid tournament title');
+        return;
+      }
+
+      db.events.unshift({
+        id: 'ev_' + Date.now(),
+        game,
+        title,
+        teamSize,
+        maxSlots,
+        entryFee,
+        scoringStyle,
+        regCloseDate,
+        status: 'active',
+        teams: []
+      });
+      saveState();
+      ui.modal = null;
+      showToast('Tournament created!');
+      render();
+    }
+
+    function submitRegistrationAndPay(eventId) {
+      const ev = db.events.find(e => e.id === eventId);
+      if (!ev) return;
+
+      const teamName = document.getElementById('reg-team').value.trim();
+      if (teamName.length < 5) {
+        showToast('Squad/Team name must be at least 5 characters');
+        return;
+      }
+
+      const members = [];
+      for (let i = 0; i < ev.teamSize; i++) {
+        const val = document.getElementById(`reg-m-${i}`).value.trim();
+        if (val.length < 5) {
+          showToast(`Player ${i + 1} name must be at least 5 characters`);
+          return;
+        }
+        members.push({ name: val, kills: 0 });
+      }
+
+      const registrationPayload = {
+        id: 'tm_' + Date.now(),
+        ownerId: ui.currentUser.id,
+        teamName,
+        members,
+        w: 0, d: 0, l: 0, gf: 0, ga: 0,
+        placementPts: 0
+      };
+
+      startRazorpayPayment({ event: ev, registrationPayload });
+    }
+
+    function saveSquadKills(eventId, teamId) {
+      const ev = db.events.find(e => e.id === eventId);
+      const team = ev?.teams.find(t => t.id === teamId);
+      if (!team) return;
+      team.members.forEach((m, idx) => {
+        m.kills = Number(document.getElementById(`mk_${idx}`).value || 0);
+      });
+      saveState();
+      ui.modal = null;
+      showToast('Squad member kills updated');
+      render();
+    }
+
+    function executeEndTournament(eventId) {
+      const ev = db.events.find(e => e.id === eventId);
+      if (ev) {
+        ev.status = 'finished';
+        saveState();
+      }
+      ui.modal = null;
+      ui.homeSelectedEventId = null;
+      showToast('Tournament moved to Finished Matches');
+      render();
+    }
+
+    function executeEndCategory(gameName) {
+      db.events.forEach(e => {
+        if (e.game === gameName && e.status === 'active') {
+          e.status = 'finished';
+        }
+      });
+      saveState();
+      ui.modal = null;
+      showToast('All ' + gameName + ' tournaments finished');
+      render();
+    }
+
+    /* =========================================================
+       ROOT RENDERER
+       ========================================================= */
+    function render() {
+      const root = document.getElementById('app');
+      root.innerHTML = (ui.currentUser ? renderMain() : renderAuth())
+        + renderModal()
+        + (ui.toast ? `<div class="toast">${escapeHtml(ui.toast)}</div>` : '');
+    }
+
+    render();
+  </script>
+</body>
+</html>
