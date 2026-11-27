@@ -196,6 +196,7 @@
     <div class="w-full max-w-[480px]">
       <!-- Brand Header (Long-press 2000ms opens Admin Access Passcode Modal) -->
       <div
+        id="brand-admin-trigger"
         onmousedown="startBrandAdminLongPress()"
         onmouseup="cancelLongPress()"
         onmouseleave="cancelLongPress()"
@@ -225,30 +226,36 @@
           </button>
         </div>
 
+        <!-- Inline Auth Feedback Banner -->
+        <div id="auth-error-banner" class="hidden mb-4 p-3 rounded-xl bg-[#FF3366]/15 border border-[#FF3366]/45 text-[#FF3366] text-xs font-semibold flex items-center gap-2">
+          <i class="fa-solid fa-circle-exclamation shrink-0"></i>
+          <span id="auth-error-text">Invalid credentials</span>
+        </div>
+
         <!-- ==================== SIGN IN PANEL ==================== -->
         <div id="auth-panel-login" class="space-y-4">
           <div class="space-y-4">
             <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email or Username</label>
+              <label for="login-identifier" class="block text-xs font-semibold text-slate-300 mb-1.5">Email or Username</label>
               <div class="relative">
                 <span class="absolute inset-y-0 left-3.5 flex items-center text-slate-500">
                   <i class="fa-solid fa-envelope text-xs"></i>
                 </span>
-                <input id="login-identifier" type="text" placeholder="player@nexus.gg or @gamer" onkeydown="if(event.key==='Enter'){event.preventDefault();handleLoginSubmit();}" class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
+                <input id="login-identifier" name="loginEmail" type="text" autocomplete="username" placeholder="player@nexus.gg or @gamer" onkeydown="if(event.key==='Enter'){event.preventDefault();handleLoginSubmit();}" class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
               </div>
             </div>
 
             <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+              <label for="login-password" class="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
               <div class="relative">
                 <span class="absolute inset-y-0 left-3.5 flex items-center text-slate-500">
                   <i class="fa-solid fa-lock text-xs"></i>
                 </span>
-                <input id="login-password" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter'){event.preventDefault();handleLoginSubmit();}" class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
+                <input id="login-password" name="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••" onkeydown="if(event.key==='Enter'){event.preventDefault();handleLoginSubmit();}" class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
               </div>
             </div>
 
-            <button type="button" onclick="handleLoginSubmit()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#7C3AED] to-[#FF3366] hover:brightness-110 text-white font-display font-extrabold text-sm tracking-wide shadow-lg shadow-[#00F0FF]/20 transition active:scale-[0.99]">
+            <button id="signInBtn" type="button" onclick="handleLoginSubmit()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#7C3AED] to-[#FF3366] hover:brightness-110 text-white font-display font-extrabold text-sm tracking-wide shadow-lg shadow-[#00F0FF]/20 transition active:scale-[0.99] cursor-pointer">
               Sign In to Arena
             </button>
           </div>
@@ -262,11 +269,11 @@
 
           <!-- Google & Apple Sign-In Buttons -->
           <div class="grid grid-cols-2 gap-3">
-            <button type="button" onclick="handleSocialAuth('Google')" class="py-3 px-3 rounded-xl bg-[#07090E] hover:bg-slate-900 border border-slate-700/80 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition active:scale-[0.98]">
+            <button id="googleSignInBtn" type="button" onclick="handleSocialAuth('Google')" class="py-3 px-3 rounded-xl bg-[#07090E] hover:bg-slate-900 border border-slate-700/80 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition active:scale-[0.98] cursor-pointer">
               <i class="fa-brands fa-google text-[#00F0FF]"></i>
               <span>Continue with Google</span>
             </button>
-            <button type="button" onclick="handleSocialAuth('Apple')" class="py-3 px-3 rounded-xl bg-[#07090E] hover:bg-slate-900 border border-slate-700/80 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition active:scale-[0.98]">
+            <button id="appleSignInBtn" type="button" onclick="handleSocialAuth('Apple')" class="py-3 px-3 rounded-xl bg-[#07090E] hover:bg-slate-900 border border-slate-700/80 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition active:scale-[0.98] cursor-pointer">
               <i class="fa-brands fa-apple text-slate-200 text-base"></i>
               <span>Continue with Apple</span>
             </button>
@@ -278,32 +285,32 @@
           <div class="space-y-3.5">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1">Full Name *</label>
-                <input id="signup-name" type="text" placeholder="Alex Mercer" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
+                <label for="signup-name" class="block text-xs font-semibold text-slate-300 mb-1">Full Name *</label>
+                <input id="signup-name" name="regName" type="text" autocomplete="name" placeholder="Alex Mercer" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
               </div>
               <div>
                 <div class="flex items-center justify-between mb-1">
-                  <label class="text-xs font-semibold text-slate-300">Username *</label>
+                  <label for="signup-username" class="text-xs font-semibold text-slate-300">Username *</label>
                   <span id="signup-username-hint" class="text-[10px] text-slate-500">Min 5 chars</span>
                 </div>
-                <input id="signup-username" type="text" placeholder="@StrikerX" oninput="validateSignupForm()" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
+                <input id="signup-username" name="regUsername" type="text" placeholder="@StrikerX" oninput="validateSignupForm()" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number *</label>
-                <input id="signup-phone" type="tel" placeholder="+91 98765 43210" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
+                <label for="signup-phone" class="block text-xs font-semibold text-slate-300 mb-1">Phone Number *</label>
+                <input id="signup-phone" name="regPhone" type="tel" autocomplete="tel" placeholder="+91 98765 43210" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1">Email *</label>
-                <input id="signup-email" type="email" placeholder="alex@example.com" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
+                <label for="signup-email" class="block text-xs font-semibold text-slate-300 mb-1">Email *</label>
+                <input id="signup-email" name="regEmail" type="email" autocomplete="email" placeholder="alex@example.com" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
               </div>
             </div>
 
             <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1">Create Password *</label>
-              <input id="signup-password" type="password" oninput="validateSignupForm()" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" placeholder="Create a strong password" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
+              <label for="signup-password" class="block text-xs font-semibold text-slate-300 mb-1">Create Password *</label>
+              <input id="signup-password" name="regPassword" type="password" autocomplete="new-password" oninput="validateSignupForm()" onkeydown="if(event.key==='Enter'){event.preventDefault();handleSignupSubmit();}" placeholder="Create a strong password" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white placeholder-slate-500" />
 
               <!-- Live Visual Password Rule Indicators -->
               <div class="grid grid-cols-2 gap-1.5 mt-2.5 p-2.5 rounded-xl bg-[#07090E]/90 border border-slate-800/80 text-[11px]">
@@ -340,11 +347,11 @@
 
           <!-- Google & Apple Buttons on Create Account -->
           <div class="grid grid-cols-2 gap-3">
-            <button type="button" onclick="handleSocialAuth('Google')" class="py-3 px-3 rounded-xl bg-[#07090E] hover:bg-slate-900 border border-slate-700/80 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition active:scale-[0.98]">
+            <button id="googleSignUpBtn" type="button" onclick="handleSocialAuth('Google')" class="py-3 px-3 rounded-xl bg-[#07090E] hover:bg-slate-900 border border-slate-700/80 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition active:scale-[0.98] cursor-pointer">
               <i class="fa-brands fa-google text-[#00F0FF]"></i>
               <span>Continue with Google</span>
             </button>
-            <button type="button" onclick="handleSocialAuth('Apple')" class="py-3 px-3 rounded-xl bg-[#07090E] hover:bg-slate-900 border border-slate-700/80 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition active:scale-[0.98]">
+            <button id="appleSignUpBtn" type="button" onclick="handleSocialAuth('Apple')" class="py-3 px-3 rounded-xl bg-[#07090E] hover:bg-slate-900 border border-slate-700/80 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition active:scale-[0.98] cursor-pointer">
               <i class="fa-brands fa-apple text-slate-200 text-base"></i>
               <span>Continue with Apple</span>
             </button>
@@ -543,7 +550,7 @@
       <section id="tab-event" class="hidden space-y-4">
         <div class="flex items-center justify-between gap-2">
           <div>
-            <h2 class="font-display text-lg font-bold text-white">Tournament Events</h2>
+            <h2 class="font-display text-lg font-bold text-white">Tournament Qualifiers</h2>
             <p class="text-xs text-slate-400">Register before slots fill or closing date</p>
           </div>
           <span id="admin-event-hint" class="hidden text-[10px] text-[#FFC83D] bg-[#FFC83D]/15 border border-[#FFC83D]/35 px-2 py-1 rounded-lg shrink-0">
@@ -651,7 +658,7 @@
           </div>
 
           <div id="rank-level3-content">
-            <!-- Dynamically rendered 1st/2nd/3rd Podium OR Direct Goals/Kills MVP Feed -->
+            <!-- Dynamically rendered 1st/2nd/3rd Podium Stage OR Direct Goals/Kills MVP Feed -->
           </div>
         </div>
       </section>
@@ -661,20 +668,11 @@
       <!-- ================================================================= -->
       <section id="tab-profile" class="hidden space-y-4">
         <div class="glass-card rounded-3xl overflow-hidden border border-slate-800 shadow-2xl">
-          <!-- Custom Back Cover Photo Banner -->
+          <!-- Custom Back Cover Photo Banner (Edited exclusively in Settings -> Edit Profile) -->
           <div id="profile-cover-banner" class="h-32 bg-gradient-to-r from-[#00F0FF]/25 via-[#7C3AED]/25 to-[#FF3366]/25 relative border-b border-slate-800/80 overflow-hidden">
             <img id="profile-cover-img" src="" alt="Cover Banner" class="hidden w-full h-full object-cover" />
             <div id="profile-cover-grid" class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#00F0FF 1px, transparent 1px); background-size: 16px 16px;"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-[#07090E]/80 via-transparent to-black/25"></div>
-
-            <!-- Top-Left Change Cover Photo Button -->
-            <div class="absolute top-3.5 left-3.5">
-              <label class="px-3 py-1.5 rounded-xl bg-[#07090E]/85 hover:bg-slate-800 border border-slate-700/90 text-[11px] font-semibold text-slate-200 flex items-center gap-1.5 cursor-pointer shadow transition">
-                <i class="fa-solid fa-image text-[#00F0FF]"></i>
-                <span>Cover</span>
-                <input type="file" accept="image/*" onchange="handleQuickCoverUpload(event)" class="hidden" />
-              </label>
-            </div>
 
             <!-- Top-Right Settings Button (Edit Profile, Dark Mode, Badges, Log Out) -->
             <div class="absolute top-3.5 right-3.5">
@@ -685,20 +683,20 @@
             </div>
           </div>
 
-          <!-- Avatar, Small Circular Equipped Badge Slot & Identity (No "PRO COMPETITOR" tag) -->
+          <!-- Avatar, Lowered Circular Equipped Badge Slot & Identity -->
           <div class="px-6 pb-6 text-center relative">
-            <div class="relative inline-block -mt-12">
+            <div class="flex flex-col items-center -mt-12">
               <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-[#00F0FF] via-[#7C3AED] to-[#FF3366] shadow-xl">
                 <img id="profile-avatar-img" src="https://placehold.co/200x200/0E131F/00F0FF?text=PLAYER" alt="Profile Photo" class="w-full h-full rounded-full object-cover bg-[#07090E]" onerror="this.src='https://placehold.co/200x200/0E131F/00F0FF?text=PLAYER'" />
               </div>
 
-              <!-- Small Circular Badge Slot Directly Beneath Profile Picture -->
+              <!-- Lowered Circular Badge Slot Cleanly Beneath Profile Picture -->
               <button
                 type="button"
                 id="profile-equipped-badge-circle"
                 onclick="openProfileBadgeInfoFromCircle()"
                 title="Equipped Achievement Badge"
-                class="-mt-3.5 mx-auto w-8 h-8 rounded-full bg-[#0E131F] border-2 border-slate-700 flex items-center justify-center text-xs text-slate-500 shadow-lg transition hover:scale-105"
+                class="mt-2.5 w-8 h-8 rounded-full bg-[#0E131F] border-2 border-slate-700 flex items-center justify-center text-xs text-slate-500 shadow-lg transition hover:scale-105"
               >
                 <i class="fa-solid fa-shield"></i>
               </button>
@@ -808,11 +806,11 @@
       <p class="text-xs text-slate-400">Enter the administrator passcode to manage tournaments, standings, and server maintenance.</p>
 
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">Admin Passcode</label>
+        <label for="admin-passcode-input" class="block text-xs font-semibold text-slate-300 mb-1">Admin Passcode</label>
         <input id="admin-passcode-input" type="password" placeholder="Enter admin passcode" onkeydown="if(event.key==='Enter'){event.preventDefault();handleAdminLogin();}" class="w-full px-3.5 py-2.5 rounded-xl bg-[#07090E] border border-slate-800 focus:border-[#00F0FF] focus:outline-none text-sm text-white" />
       </div>
 
-      <button type="button" onclick="handleAdminLogin()" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#7C3AED] hover:brightness-110 text-white font-display font-extrabold text-xs tracking-wider uppercase shadow transition">
+      <button id="unlockAdminBtn" type="button" onclick="handleAdminLogin()" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#7C3AED] hover:brightness-110 text-white font-display font-extrabold text-xs tracking-wider uppercase shadow transition cursor-pointer">
         Unlock Admin Mode
       </button>
     </div>
@@ -1182,7 +1180,7 @@
       </div>
 
       <div class="space-y-4">
-        <!-- Back Cover Photo Upload Preview -->
+        <!-- Back Cover Photo Upload Preview (Exclusive Location for Cover Photo Upload) -->
         <div class="space-y-1.5">
           <label class="block text-xs font-semibold text-slate-300">Back Cover Photo</label>
           <div class="h-20 rounded-2xl bg-gradient-to-r from-[#00F0FF]/20 via-[#7C3AED]/20 to-[#FF3366]/20 border border-slate-800 relative overflow-hidden flex items-center justify-center">
@@ -1471,9 +1469,9 @@
       // 2. APPLICATION STATE & UNLOCKABLE BADGE DEFINITIONS
       // -------------------------------------------------------------------
       const STORAGE_KEYS = {
-        USERS: 'nexus_arena_registered_users_v20',
-        STATE: 'nexus_arena_state_v20',
-        THEME: 'nexus_arena_dark_mode_v20'
+        USERS: 'nexus_arena_registered_users_v21',
+        STATE: 'nexus_arena_state_v21',
+        THEME: 'nexus_arena_dark_mode_v21'
       };
 
       const RAZORPAY_KEY_ID = 'rzp_test_U58EDnzsyGqw6z';
@@ -1597,6 +1595,67 @@
         const savedTheme = safeGetStorage(STORAGE_KEYS.THEME);
         isDarkMode = savedTheme === null ? true : savedTheme === 'true';
         applyDarkModeTheme();
+        bindAuthListeners();
+      }
+
+      function bindAuthListeners() {
+        const signInBtn = document.getElementById('signInBtn');
+        const signupBtn = document.getElementById('signup-submit-btn');
+        const googleIn = document.getElementById('googleSignInBtn');
+        const appleIn = document.getElementById('appleSignInBtn');
+        const googleUp = document.getElementById('googleSignUpBtn');
+        const appleUp = document.getElementById('appleSignUpBtn');
+        const unlockBtn = document.getElementById('unlockAdminBtn');
+
+        if (signInBtn && !signInBtn.dataset.bound) {
+          signInBtn.dataset.bound = '1';
+          signInBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            handleLoginSubmit();
+          });
+        }
+        if (signupBtn && !signupBtn.dataset.bound) {
+          signupBtn.dataset.bound = '1';
+          signupBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            handleSignupSubmit();
+          });
+        }
+        if (googleIn && !googleIn.dataset.bound) {
+          googleIn.dataset.bound = '1';
+          googleIn.addEventListener('click', function (e) {
+            e.preventDefault();
+            handleSocialAuth('Google');
+          });
+        }
+        if (appleIn && !appleIn.dataset.bound) {
+          appleIn.dataset.bound = '1';
+          appleIn.addEventListener('click', function (e) {
+            e.preventDefault();
+            handleSocialAuth('Apple');
+          });
+        }
+        if (googleUp && !googleUp.dataset.bound) {
+          googleUp.dataset.bound = '1';
+          googleUp.addEventListener('click', function (e) {
+            e.preventDefault();
+            handleSocialAuth('Google');
+          });
+        }
+        if (appleUp && !appleUp.dataset.bound) {
+          appleUp.dataset.bound = '1';
+          appleUp.addEventListener('click', function (e) {
+            e.preventDefault();
+            handleSocialAuth('Apple');
+          });
+        }
+        if (unlockBtn && !unlockBtn.dataset.bound) {
+          unlockBtn.dataset.bound = '1';
+          unlockBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            handleAdminLogin();
+          });
+        }
       }
 
       function applyDarkModeTheme() {
@@ -1683,6 +1742,20 @@
         }, 3200);
       }
 
+      function showAuthError(msg) {
+        const banner = document.getElementById('auth-error-banner');
+        const textEl = document.getElementById('auth-error-text');
+        if (banner && textEl) {
+          if (msg) {
+            textEl.textContent = msg;
+            banner.classList.remove('hidden');
+          } else {
+            banner.classList.add('hidden');
+          }
+        }
+        if (msg) showToast(msg);
+      }
+
       function openModal(id) {
         const el = document.getElementById(id);
         if (!el) return;
@@ -1715,6 +1788,7 @@
       }
 
       function switchAuthTab(tab) {
+        showAuthError('');
         const loginTab = document.getElementById('auth-tab-login');
         const signupTab = document.getElementById('auth-tab-signup');
         const loginPanel = document.getElementById('auth-panel-login');
@@ -1776,22 +1850,22 @@
       }
 
       function handleSignupSubmit() {
-        const name = document.getElementById('signup-name').value.trim();
-        let rawUsername = document.getElementById('signup-username').value.trim().replace(/^@+/, '');
-        const phone = document.getElementById('signup-phone').value.trim();
-        const email = document.getElementById('signup-email').value.trim();
-        const password = document.getElementById('signup-password').value;
+        const name = (document.getElementById('signup-name').value || '').trim();
+        let rawUsername = (document.getElementById('signup-username').value || '').trim().replace(/^@+/, '');
+        const phone = (document.getElementById('signup-phone').value || '').trim();
+        const email = (document.getElementById('signup-email').value || '').trim();
+        const password = document.getElementById('signup-password').value || '';
 
+        if (!name || !phone || !email) {
+          showAuthError('Please complete Full Name, Phone Number, and Email.');
+          return;
+        }
         if (rawUsername.length < 5) {
-          showToast('Gaming Username must be at least 5 characters.');
+          showAuthError('Gaming Username must be at least 5 characters.');
           return;
         }
         if (!validateSignupForm()) {
-          showToast('Please satisfy all 4 password rules.');
-          return;
-        }
-        if (!name || !phone || !email) {
-          showToast('Please complete all required fields.');
+          showAuthError('Password must satisfy all 4 security rules.');
           return;
         }
 
@@ -1801,7 +1875,7 @@
           u => u.email.toLowerCase() === email.toLowerCase() || u.username.toLowerCase() === username.toLowerCase()
         );
         if (duplicate) {
-          showToast('An account with that email or username already exists.');
+          showAuthError('An account with that email or username already exists.');
           return;
         }
 
@@ -1819,16 +1893,17 @@
 
         registeredUsers.push(newUser);
         saveRegisteredUsers();
+        showAuthError('');
         completeUserLogin(newUser, false);
         showToast(`Welcome to NEXUS ARENA, ${newUser.name}!`);
       }
 
       function handleLoginSubmit() {
-        const identifier = document.getElementById('login-identifier').value.trim();
-        const password = document.getElementById('login-password').value;
+        const identifier = (document.getElementById('login-identifier').value || '').trim();
+        const password = document.getElementById('login-password').value || '';
 
         if (!identifier || !password) {
-          showToast('Enter your email/username and password.');
+          showAuthError('Please enter your email/username and password.');
           return;
         }
 
@@ -1841,15 +1916,17 @@
         );
 
         if (!matchedUser) {
-          showToast('Invalid credentials. Please check your details or create an account.');
+          showAuthError('No matching account found. Create an account first or verify your password.');
           return;
         }
 
+        showAuthError('');
         completeUserLogin(matchedUser, false);
         showToast(`Signed in as ${matchedUser.name}`);
       }
 
       function handleSocialAuth(provider) {
+        showAuthError('');
         const tag = provider === 'Google' ? 'GooglePlayer' : 'ApplePlayer';
         const existing = registeredUsers.find(u => u.email.toLowerCase() === `${tag.toLowerCase()}@nexus.gg`);
         if (existing) {
@@ -1905,6 +1982,7 @@
           equippedBadge: ''
         };
 
+        showAuthError('');
         closeModal('modal-admin-access');
         completeUserLogin(adminProfile, true);
         showToast('Admin Mode unlocked.');
@@ -2024,6 +2102,7 @@
           return {
             icon: 'fa-futbol',
             accent: 'text-[#00F0FF]',
+            strip: 'bg-gradient-to-b from-[#00F0FF] to-[#0284C7]',
             bgIcon: 'bg-[#00F0FF]/15 border-[#00F0FF]/35 text-[#00F0FF]'
           };
         }
@@ -2031,6 +2110,7 @@
           return {
             icon: 'fa-crosshairs',
             accent: 'text-[#FF3366]',
+            strip: 'bg-gradient-to-b from-[#FF3366] to-[#E11D48]',
             bgIcon: 'bg-[#FF3366]/15 border-[#FF3366]/35 text-[#FF3366]'
           };
         }
@@ -2038,12 +2118,14 @@
           return {
             icon: 'fa-fire-flame-curved',
             accent: 'text-[#FFC83D]',
+            strip: 'bg-gradient-to-b from-[#FFC83D] to-[#D97706]',
             bgIcon: 'bg-[#FFC83D]/15 border-[#FFC83D]/35 text-[#FFC83D]'
           };
         }
         return {
           icon: 'fa-gamepad',
           accent: 'text-[#7C3AED]',
+          strip: 'bg-gradient-to-b from-[#7C3AED] to-[#4F46E5]',
           bgIcon: 'bg-[#7C3AED]/15 border-[#7C3AED]/40 text-purple-300'
         };
       }
@@ -2200,13 +2282,15 @@
               ontouchend="cancelLongPress()"
               ontouchmove="cancelLongPress()"
               onclick="handleHomeGameClick('${escapeHtmlAttr(gameName)}')"
-              class="no-select cursor-pointer p-4 rounded-3xl glass-card border border-slate-800 ${isFinished ? 'hover:border-[#FFC83D]/70' : 'hover:border-[#00F0FF]/70'} transition flex items-center justify-between gap-3 active:scale-[0.99]"
+              class="no-select relative overflow-hidden cursor-pointer p-4 pl-5 rounded-3xl glass-card border border-slate-800 ${isFinished ? 'hover:border-[#FFC83D]/70' : 'hover:border-[#00F0FF]/70'} transition flex items-center justify-between gap-3 active:scale-[0.99]"
             >
+              <span class="absolute left-0 top-0 bottom-0 w-1.5 ${meta.strip}"></span>
               <div class="flex items-center gap-3.5 min-w-0">
                 <div class="w-12 h-12 rounded-2xl border ${meta.bgIcon} flex items-center justify-center text-xl shrink-0">
                   <i class="fa-solid ${meta.icon}"></i>
                 </div>
                 <div class="min-w-0">
+                  <span class="text-[9px] font-display uppercase tracking-widest text-slate-500 block">Esports Discipline</span>
                   <h3 class="font-display font-extrabold text-sm sm:text-base text-white truncate">${escapeHtml(gameName)}</h3>
                   <p class="text-xs ${isFinished ? 'text-[#FFC83D]' : meta.accent} font-semibold mt-0.5">
                     ${matching.length} ${isFinished ? 'Finished' : 'Active'} Tournament${matching.length > 1 ? 's' : ''}
@@ -2388,6 +2472,7 @@
           const startedByDate = hasEventStartedByDate(ev);
           const alreadyRegistered = currentUser && regs.some(r => r.userId === currentUser.id);
           const feeDisplay = Number(ev.fee) === 0 ? 'Free' : `₹${ev.fee}`;
+          const formatLabel = (ev.gameNature || 'pes') === 'kills' ? 'KILLS FORMAT' : 'POINTS FORMAT';
 
           let statusBadgeHtml = '';
           if (ev.ended) {
@@ -2447,9 +2532,11 @@
           }
 
           return `
-            <div onclick="openHomeEventDetail('${ev.id}')" class="cursor-pointer p-4 rounded-3xl glass-card border border-slate-800 hover:border-[#00F0FF]/65 transition space-y-3 active:scale-[0.99]">
+            <div onclick="openHomeEventDetail('${ev.id}')" class="relative overflow-hidden cursor-pointer p-4 pl-5 rounded-3xl glass-card border border-slate-800 hover:border-[#00F0FF]/65 transition space-y-3 active:scale-[0.99]">
+              <span class="absolute left-0 top-0 bottom-0 w-1.5 ${meta.strip}"></span>
               <div class="flex items-start justify-between gap-2">
                 <div class="min-w-0">
+                  <span class="inline-block px-2 py-0.5 rounded bg-slate-800/90 text-[9px] font-display font-bold tracking-wider text-slate-300 mb-1">${formatLabel}</span>
                   <h3 class="font-display font-extrabold text-sm sm:text-base text-white truncate">${escapeHtml(ev.title)}</h3>
                   <p class="text-[11px] text-slate-400 mt-0.5">${formatMatchStyle(ev.matchStyle)} ${ev.startDate ? `• Starts ${escapeHtml(ev.startDate)}` : ''}</p>
                 </div>
@@ -2603,8 +2690,16 @@
           tbody.innerHTML = sorted.map((reg, idx) => {
             const displayName = reg.isTeam ? reg.teamName : reg.playerName;
             const subLabel = reg.isTeam
-              ? `<span class="text-[#FF3366] font-bold">Captain</span>: ${escapeHtml(reg.playerName)}`
+              ? `<span class="text-[#EF4444] font-bold">Captain</span>: ${escapeHtml(reg.playerName)}`
               : escapeHtml(reg.username);
+
+            const rankPill = idx === 0
+              ? `<span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-[#FFC83D] text-slate-950 font-display font-black text-[11px]">1</span>`
+              : idx === 1
+                ? `<span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-slate-300 text-slate-950 font-display font-black text-[11px]">2</span>`
+                : idx === 2
+                  ? `<span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-amber-600 text-white font-display font-black text-[11px]">3</span>`
+                  : `<span class="font-display font-bold text-slate-400">${idx + 1}</span>`;
 
             if (isKills) {
               const tkCell = (isTableEditMode && isMultiTeam)
@@ -2625,7 +2720,7 @@
 
               return `
                 <tr class="hover:bg-slate-900/50">
-                  <td class="py-2.5 px-3 font-display font-bold text-slate-400">${idx + 1}</td>
+                  <td class="py-2.5 px-3">${rankPill}</td>
                   <td class="py-2.5 px-3">
                     <div class="font-bold text-white truncate max-w-[140px]">${escapeHtml(displayName)}</div>
                     <div class="text-[10px] text-slate-400 truncate max-w-[140px]">${subLabel}</div>
@@ -2652,7 +2747,7 @@
 
             return `
               <tr class="hover:bg-slate-900/50">
-                <td class="py-2.5 px-3 font-display font-bold text-slate-400">${idx + 1}</td>
+                <td class="py-2.5 px-3">${rankPill}</td>
                 <td class="py-2.5 px-3">
                   <div class="font-bold text-white truncate max-w-[140px]">${escapeHtml(displayName)}</div>
                   <div class="text-[10px] text-slate-400 truncate max-w-[140px]">${subLabel}</div>
@@ -2695,7 +2790,7 @@
           rosterList.innerHTML = regs.map((reg, index) => {
             const titleText = reg.isTeam ? reg.teamName : reg.playerName;
             const subHtml = reg.isTeam
-              ? `<span class="text-[#FF3366] font-bold">Captain</span>: ${escapeHtml(reg.playerName)} • ${(reg.members || []).length} Members`
+              ? `<span class="text-[#EF4444] font-bold">Captain</span>: ${escapeHtml(reg.playerName)} • ${(reg.members || []).length} Members`
               : `${escapeHtml(reg.username)}`;
 
             return `
@@ -2815,7 +2910,7 @@
             <div class="p-3 rounded-2xl bg-[#07090E] border border-slate-800 flex items-center justify-between gap-2">
               <div class="min-w-0">
                 <span class="text-xs font-bold text-white truncate block">${escapeHtml(memberName)}</span>
-                ${idx === 0 ? '<span class="text-[10px] text-[#FF3366] font-bold">Captain</span>' : '<span class="text-[10px] text-slate-500">Squad Member</span>'}
+                ${idx === 0 ? '<span class="text-[10px] text-[#EF4444] font-bold">Captain</span>' : '<span class="text-[10px] text-slate-500">Squad Member</span>'}
               </div>
               <div class="flex items-center gap-1.5 shrink-0">
                 <button type="button" onclick="adjustSquadMemberKill('${escapeHtmlAttr(memberName)}', -1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs">-</button>
@@ -2911,7 +3006,7 @@
                 ${(reg.members || []).map((m, idx) => `
                   <li class="flex items-center justify-between py-1.5 px-2.5 rounded-lg bg-slate-900/90 text-xs">
                     <span class="text-white font-semibold">${idx + 1}. ${escapeHtml(m)}</span>
-                    ${idx === 0 ? '<span class="text-[10px] text-[#FF3366] font-bold">Captain</span>' : ''}
+                    ${idx === 0 ? '<span class="text-[10px] text-[#EF4444] font-bold">Captain</span>' : ''}
                   </li>
                 `).join('')}
               </ul>
@@ -2922,7 +3017,7 @@
         document.getElementById('detail-modal-body').innerHTML = `
           <div class="p-3.5 rounded-2xl bg-[#07090E] border border-slate-800 space-y-2.5">
             <div class="flex justify-between gap-2">
-              <span class="text-slate-400">Full Name ${reg.isTeam ? '(<span class="text-[#FF3366] font-bold">Captain</span>)' : ''}</span>
+              <span class="text-slate-400">Full Name ${reg.isTeam ? '(<span class="text-[#EF4444] font-bold">Captain</span>)' : ''}</span>
               <span class="font-bold text-white text-right">${escapeHtml(fullName)}</span>
             </div>
             <div class="flex justify-between gap-2">
@@ -3017,6 +3112,7 @@
           const isClosedOrFull = isFull || isClosed;
           const alreadyRegistered = currentUser && regs.some(r => r.userId === currentUser.id);
           const feeDisplay = Number(ev.fee) === 0 ? 'Free' : `₹${ev.fee}`;
+          const formatLabel = (ev.gameNature || 'pes') === 'kills' ? 'KILLS FORMAT' : 'POINTS FORMAT';
 
           let topStatusBadge = '';
           if (isClosedOrFull) {
@@ -3078,16 +3174,20 @@
               ontouchstart="startEventCardLongPress('${ev.id}')"
               ontouchend="cancelLongPress()"
               ontouchmove="cancelLongPress()"
-              class="no-select glass-card rounded-3xl p-5 border border-slate-800 space-y-4"
+              class="no-select relative overflow-hidden glass-card rounded-3xl p-5 pl-6 border border-slate-800 space-y-4"
             >
+              <span class="absolute left-0 top-0 bottom-0 w-1.5 ${meta.strip}"></span>
               <div class="flex items-start justify-between gap-2">
                 <div class="flex items-center gap-3 min-w-0">
                   <div class="w-11 h-11 rounded-2xl border ${meta.bgIcon} flex items-center justify-center text-lg shrink-0">
                     <i class="fa-solid ${meta.icon}"></i>
                   </div>
                   <div class="min-w-0">
-                    <span class="text-[10px] font-display uppercase tracking-wider ${meta.accent} font-bold block">${escapeHtml(ev.game)}</span>
-                    <h3 class="font-display text-base font-extrabold text-white truncate">${escapeHtml(ev.title)}</h3>
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-[10px] font-display uppercase tracking-wider ${meta.accent} font-bold">${escapeHtml(ev.game)}</span>
+                      <span class="px-1.5 py-0.5 rounded bg-slate-800 text-[8px] font-display font-bold text-slate-300">${formatLabel}</span>
+                    </div>
+                    <h3 class="font-display text-base font-extrabold text-white truncate mt-0.5">${escapeHtml(ev.title)}</h3>
                   </div>
                 </div>
                 ${topStatusBadge}
@@ -3158,7 +3258,7 @@
             html += `
               <div>
                 <div class="flex items-center justify-between mb-1">
-                  <label class="text-xs font-semibold text-slate-300">Slot 1 (<span class="text-[#FF3366] font-bold">Captain</span>)</label>
+                  <label class="text-xs font-semibold text-slate-300">Slot 1 (<span class="text-[#EF4444] font-bold">Captain</span>)</label>
                   <span class="text-[10px] text-emerald-400 font-semibold">Auto-filled</span>
                 </div>
                 <input type="text" readonly value="${escapeHtmlAttr(currentUser.name)}" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-sm text-slate-300 cursor-not-allowed" />
@@ -3707,7 +3807,7 @@
 
       // -------------------------------------------------------------------
       // 9. RANK TAB:
-      //    - TOURNAMENT PODIUM: STRICTLY ENDED MATCHES ONLY
+      //    - TOURNAMENT PODIUM: STRICTLY ENDED MATCHES (3-COLUMN PODIUM STAGE)
       //    - MVP: ONGOING MATCH MVP (DIRECT GOALS/KILLS FEED) vs TOURNAMENT MVP (ENDED ONLY)
       // -------------------------------------------------------------------
       function getEffectiveRankSpec() {
@@ -3817,7 +3917,8 @@
           ).length;
 
           return `
-            <div onclick="handleRankGameClick('${escapeHtmlAttr(gameName)}')" class="cursor-pointer p-4 rounded-3xl glass-card border border-slate-800 hover:border-[#FFC83D]/70 transition flex items-center justify-between gap-3 active:scale-[0.99]">
+            <div onclick="handleRankGameClick('${escapeHtmlAttr(gameName)}')" class="relative overflow-hidden cursor-pointer p-4 pl-5 rounded-3xl glass-card border border-slate-800 hover:border-[#FFC83D]/70 transition flex items-center justify-between gap-3 active:scale-[0.99]">
+              <span class="absolute left-0 top-0 bottom-0 w-1.5 ${meta.strip}"></span>
               <div class="flex items-center gap-3.5 min-w-0">
                 <div class="w-12 h-12 rounded-2xl border ${meta.bgIcon} flex items-center justify-center text-xl shrink-0">
                   <i class="fa-solid ${meta.icon}"></i>
@@ -3863,7 +3964,8 @@
 
         const container = document.getElementById('rank-level2-events-list');
         container.innerHTML = events.map(ev => `
-          <div onclick="openRankEventDetail('${ev.id}')" class="cursor-pointer p-4 rounded-3xl glass-card border border-slate-800 hover:border-[#00F0FF]/65 transition flex items-center justify-between gap-3 active:scale-[0.99]">
+          <div onclick="openRankEventDetail('${ev.id}')" class="relative overflow-hidden cursor-pointer p-4 pl-5 rounded-3xl glass-card border border-slate-800 hover:border-[#00F0FF]/65 transition flex items-center justify-between gap-3 active:scale-[0.99]">
+            <span class="absolute left-0 top-0 bottom-0 w-1.5 ${meta.strip}"></span>
             <div class="min-w-0">
               <h4 class="font-display font-extrabold text-sm text-white truncate">${escapeHtml(ev.title)}</h4>
               <p class="text-[11px] text-slate-400 mt-0.5">${formatMatchStyle(ev.matchStyle)} • ${ev.ended ? 'Completed' : 'Live Feed'}</p>
@@ -3938,7 +4040,7 @@
         document.getElementById('rank-level3-event-title').textContent = ev.title;
         const container = document.getElementById('rank-level3-content');
 
-        // 1. TOURNAMENT PODIUM (STRICTLY ENDED MATCHES)
+        // 1. TOURNAMENT PODIUM (STRICTLY ENDED MATCHES — 3-COLUMN CHAMPIONSHIP PODIUM STAGE)
         if (rankMode === 'podium') {
           if (!ev.ended) {
             goRankLevel1();
@@ -3952,10 +4054,10 @@
           const thirdDisplay = w.third || (sorted[2] ? (sorted[2].isTeam ? sorted[2].teamName : sorted[2].playerName) : 'N/A');
 
           container.innerHTML = `
-            <div class="glass-card rounded-3xl p-5 border border-slate-800 space-y-4">
+            <div class="glass-card rounded-3xl p-5 border border-slate-800 space-y-5">
               <div class="flex items-center justify-between border-b border-slate-800 pb-3">
                 <div>
-                  <h4 class="font-display text-sm font-bold text-white">Tournament Podium</h4>
+                  <h4 class="font-display text-sm font-bold text-white">Championship Podium Stage</h4>
                   <p class="text-[11px] text-slate-400">Official Final Top 3 Champions</p>
                 </div>
                 <span class="px-2.5 py-1 rounded-full bg-[#FFC83D]/15 border border-[#FFC83D]/40 text-[#FFC83D] font-display font-bold text-[10px]">
@@ -3963,35 +4065,37 @@
                 </span>
               </div>
 
-              <div class="space-y-3">
-                <div class="p-4 rounded-2xl bg-[#FFC83D]/15 border border-[#FFC83D]/45 flex items-center justify-between">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="text-2xl">🥇</span>
-                    <div class="min-w-0">
-                      <span class="text-[10px] font-display uppercase tracking-wider text-[#FFC83D] font-bold block">1st Place</span>
-                      <span class="font-display text-sm font-extrabold text-white truncate block">${escapeHtml(firstDisplay)}</span>
-                    </div>
+              <!-- 3-Column Championship Podium Stage (2ND Left, Elevated 1ST Center, 3RD Right) -->
+              <div class="grid grid-cols-3 gap-2 items-end pt-3">
+                <!-- 2ND SILVER -->
+                <div class="rounded-2xl bg-gradient-to-b from-slate-300/20 to-[#07090E] border border-slate-400/45 p-2.5 text-center space-y-1.5 min-h-[122px] flex flex-col justify-between">
+                  <div>
+                    <span class="text-xl block">🥈</span>
+                    <span class="text-[9px] font-display font-extrabold uppercase tracking-wider text-slate-300 block mt-0.5">2ND</span>
                   </div>
+                  <p class="font-display text-[11px] font-bold text-white line-clamp-2 leading-tight">${escapeHtml(secondDisplay)}</p>
+                  <div class="h-1.5 rounded-full bg-slate-300/60 w-10 mx-auto"></div>
                 </div>
 
-                <div class="p-4 rounded-2xl bg-slate-400/10 border border-slate-500/40 flex items-center justify-between">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="text-2xl">🥈</span>
-                    <div class="min-w-0">
-                      <span class="text-[10px] font-display uppercase tracking-wider text-slate-300 font-bold block">2nd Place</span>
-                      <span class="font-display text-sm font-extrabold text-white truncate block">${escapeHtml(secondDisplay)}</span>
-                    </div>
+                <!-- 1ST CHAMPION GOLD (ELEVATED) -->
+                <div class="rounded-2xl bg-gradient-to-b from-[#FFC83D]/30 via-[#FFC83D]/12 to-[#07090E] border-2 border-[#FFC83D] p-3 text-center space-y-1.5 min-h-[146px] flex flex-col justify-between shadow-lg shadow-[#FFC83D]/15">
+                  <div>
+                    <i class="fa-solid fa-crown text-[#FFC83D] text-xs block mb-0.5"></i>
+                    <span class="text-2xl block">🥇</span>
+                    <span class="text-[9px] font-display font-black uppercase tracking-wider text-[#FFC83D] block mt-0.5">1ST CHAMPION</span>
                   </div>
+                  <p class="font-display text-xs font-black text-white line-clamp-2 leading-tight">${escapeHtml(firstDisplay)}</p>
+                  <div class="h-1.5 rounded-full bg-[#FFC83D] w-12 mx-auto"></div>
                 </div>
 
-                <div class="p-4 rounded-2xl bg-amber-700/15 border border-amber-600/40 flex items-center justify-between">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="text-2xl">🥉</span>
-                    <div class="min-w-0">
-                      <span class="text-[10px] font-display uppercase tracking-wider text-amber-400 font-bold block">3rd Place</span>
-                      <span class="font-display text-sm font-extrabold text-white truncate block">${escapeHtml(thirdDisplay)}</span>
-                    </div>
+                <!-- 3RD BRONZE -->
+                <div class="rounded-2xl bg-gradient-to-b from-amber-700/25 to-[#07090E] border border-amber-600/45 p-2.5 text-center space-y-1.5 min-h-[112px] flex flex-col justify-between">
+                  <div>
+                    <span class="text-xl block">🥉</span>
+                    <span class="text-[9px] font-display font-extrabold uppercase tracking-wider text-amber-400 block mt-0.5">3RD</span>
                   </div>
+                  <p class="font-display text-[11px] font-bold text-white line-clamp-2 leading-tight">${escapeHtml(thirdDisplay)}</p>
+                  <div class="h-1.5 rounded-full bg-amber-500/60 w-10 mx-auto"></div>
                 </div>
               </div>
             </div>
@@ -4081,7 +4185,6 @@
         const userNameLower = (currentUser.name || '').trim().toLowerCase();
         const participatedOutcomes = [];
 
-        // Sort events chronologically so consecutive win streak is evaluated accurately
         const chronologicalEvents = [...arenaState.events].sort((a, b) => (a.endedAt || 0) - (b.endedAt || 0));
 
         chronologicalEvents.forEach(ev => {
@@ -4143,7 +4246,6 @@
           }
         }
 
-        // Automatically clear equipped badge if it is no longer unlocked
         if (currentUser.equippedBadge && !unlocked[currentUser.equippedBadge]) {
           currentUser.equippedBadge = '';
         }
@@ -4218,7 +4320,7 @@
         if (fullNameEl) fullNameEl.textContent = currentUser.name;
         if (usernameEl) usernameEl.textContent = currentUser.username;
 
-        // Evaluate & Render Small Circular Badge Slot Under Avatar
+        // Evaluate & Render Small Circular Badge Slot Cleanly Beneath Avatar (mt-2.5)
         const unlockedMap = evaluateUserBadges();
         const badgeCircleBtn = document.getElementById('profile-equipped-badge-circle');
         const badgeCaptionWrap = document.getElementById('profile-equipped-badge-caption');
@@ -4227,7 +4329,7 @@
         const equippedMeta = BADGE_CATALOG.find(b => b.id === currentUser.equippedBadge && unlockedMap[b.id]);
         if (badgeCircleBtn) {
           if (equippedMeta) {
-            badgeCircleBtn.className = `-mt-3.5 mx-auto w-8 h-8 rounded-full border-2 ${equippedMeta.ringClass} flex items-center justify-center text-xs shadow-lg transition hover:scale-105`;
+            badgeCircleBtn.className = `mt-2.5 w-8 h-8 rounded-full border-2 ${equippedMeta.ringClass} flex items-center justify-center text-xs shadow-lg transition hover:scale-105`;
             badgeCircleBtn.innerHTML = `<i class="fa-solid ${equippedMeta.icon}"></i>`;
             if (badgeCaptionWrap && badgeCaptionName) {
               badgeCaptionWrap.classList.remove('hidden');
@@ -4235,7 +4337,7 @@
               badgeCaptionName.className = `text-[10px] font-display font-bold tracking-wider uppercase ${equippedMeta.colorClass}`;
             }
           } else {
-            badgeCircleBtn.className = '-mt-3.5 mx-auto w-8 h-8 rounded-full bg-[#0E131F] border-2 border-slate-700 flex items-center justify-center text-xs text-slate-500 shadow-lg transition hover:scale-105';
+            badgeCircleBtn.className = 'mt-2.5 w-8 h-8 rounded-full bg-[#0E131F] border-2 border-slate-700 flex items-center justify-center text-xs text-slate-500 shadow-lg transition hover:scale-105';
             badgeCircleBtn.innerHTML = '<i class="fa-solid fa-shield"></i>';
             if (badgeCaptionWrap) badgeCaptionWrap.classList.add('hidden');
           }
@@ -4440,7 +4542,7 @@
                 ${ach.members.map((m, i) => `
                   <li class="flex items-center justify-between py-1.5 px-2.5 rounded-lg bg-slate-900/90 text-xs">
                     <span class="text-white font-semibold">${i + 1}. ${escapeHtml(m)}</span>
-                    ${i === 0 ? '<span class="text-[10px] text-[#FF3366] font-bold">Captain</span>' : ''}
+                    ${i === 0 ? '<span class="text-[10px] text-[#EF4444] font-bold">Captain</span>' : ''}
                   </li>
                 `).join('')}
               </ul>
@@ -4484,24 +4586,6 @@
         `;
 
         openModal('modal-achievement-details');
-      }
-
-      function handleQuickCoverUpload(e) {
-        if (!currentUser) return;
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function (ev) {
-          currentUser.coverImage = ev.target.result;
-          const storedIdx = registeredUsers.findIndex(u => u.id === currentUser.id);
-          if (storedIdx !== -1) {
-            registeredUsers[storedIdx].coverImage = currentUser.coverImage;
-            saveRegisteredUsers();
-          }
-          renderProfileTab();
-          showToast('Back cover photo updated!');
-        };
-        reader.readAsDataURL(file);
       }
 
       function openProfileEditModal() {
@@ -4645,7 +4729,6 @@
       window.toggleProfileAchievementsDrawer = toggleProfileAchievementsDrawer;
       window.startAchievementLongPress = startAchievementLongPress;
       window.openAchievementDetailsModal = openAchievementDetailsModal;
-      window.handleQuickCoverUpload = handleQuickCoverUpload;
       window.handleModalCoverUpload = handleModalCoverUpload;
       window.openProfileBadgeInfoFromCircle = openProfileBadgeInfoFromCircle;
       window.startBadgeLongPress = startBadgeLongPress;
